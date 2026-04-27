@@ -46,6 +46,38 @@ body {
   100% { transform: translateY(-110vh) scale(1.1); opacity: 0; }
 }
 
+/* --- ДРЕБЕЗЖАЩИЕ СТРУНЫ --- */
+#bg-strings {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
+}
+.string {
+  position: absolute;
+  top: 0; left: var(--pos);
+  width: 1.5px; height: 100vh;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(197, 165, 90, 0.12) 35%,
+    #D4B86A 50%,
+    rgba(197, 165, 90, 0.12) 65%,
+    transparent 100%);
+  box-shadow: 0 0 5px rgba(197, 165, 90, 0.15);
+  opacity: 0.12;
+  border-radius: 1px;
+  transform-origin: center center;
+  animation: stringPluck var(--dur) cubic-bezier(0.25, 0.1, 0.25, 1) infinite var(--delay);
+}
+
+@keyframes stringPluck {
+  0%   { transform: translateX(0) scaleX(1); opacity: 0.12; }
+  2%   { transform: translateX(3px) scaleX(1.08); opacity: 0.38; box-shadow: 0 0 12px rgba(212, 184, 106, 0.5); }
+  4%   { transform: translateX(-2.2px) scaleX(0.96); opacity: 0.28; }
+  6%   { transform: translateX(1.4px) scaleX(1.04); opacity: 0.22; }
+  8%   { transform: translateX(-0.9px) scaleX(1.02); opacity: 0.18; }
+  10%  { transform: translateX(0.5px) scaleX(1); opacity: 0.15; }
+  12%  { transform: translateX(-0.2px) scaleX(0.99); opacity: 0.13; }
+  14%, 100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 5px rgba(197, 165, 90, 0.15); }
+}
+
 /* HEADER */
 .header {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
@@ -72,10 +104,12 @@ body {
 
 /* MAIN & SECTIONS */
 main { position: relative; z-index: 2; }
+
 section {
   padding: 6rem 1rem;
   max-width: var(--container);
-  margin-inline: auto; /* Центрирует секцию */
+  margin-inline: auto;
+  position: relative;
 }
 
 .section-title {
@@ -87,16 +121,44 @@ section {
   margin: 0.5rem auto 0; border-radius: 2px;
 }
 
-/* HERO */
+/* HERO - самое сильное свечение */
 .hero {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  padding: 6rem 1rem 3rem; position: relative;
-  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.12) 0%, transparent 60%);
+  min-height: 100vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  padding: 6rem 1rem 3rem; 
+  position: relative;
+  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.15) 0%, transparent 60%);
 }
 .hero-content { max-width: 800px; }
-.hero-title { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 1rem; line-height: 1.1; }
-.hero-subtitle { font-size: clamp(1rem, 2vw, 1.3rem); color: var(--text-muted); margin-bottom: 2rem; }
+.hero-title { 
+  font-family: var(--font-heading); 
+  font-size: clamp(2.5rem, 8vw, 4.5rem); 
+  margin-bottom: 1rem; 
+  line-height: 1.1; 
+}
+.hero-subtitle { 
+  font-size: clamp(1rem, 2vw, 1.3rem); 
+  color: var(--text-muted); 
+  margin-bottom: 2rem; 
+}
 .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ABOUT (Концепция) - среднее свечение */
+.about {
+  background: radial-gradient(circle at 50% 40%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+}
+
+/* MEDIA (Медиа) - среднее свечение */
+.media {
+  background: radial-gradient(circle at 50% 50%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+}
+
+/* COMMUNITY (Сообщество и Пресса) - среднее свечение */
+.community {
+  background: radial-gradient(circle at 50% 35%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+}
 
 /* BUTTONS */
 .btn {
@@ -123,23 +185,24 @@ section {
 .media-item span { color: var(--text-muted); opacity: 0.7; font-size: 0.9rem; }
 .media-item.video::before { content: '▶'; position: absolute; font-size: 2rem; opacity: 0.2; }
 
-/* COMMUNITY (ИСПРАВЛЕНО ЦЕНТРИРОВАНИЕ) */
+/* COMMUNITY WRAPPER */
 .community-wrapper {
   display: grid; gap: 2rem; width: 100%;
-  max-width: 900px; margin-inline: auto; /* Жёсткое центрирование */
+  max-width: 900px; margin-inline: auto;
 }
 .socials { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
 .social-link {
   width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
   background: var(--bg-panel); border-radius: 50%; transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.05);
 }
-.social-link svg { width: 22px; height: 22px; color: var(--text-muted); }
-.social-link:hover { background: var(--gold); transform: scale(1.1); }
+.social-link svg { width: 20px; height: 20px; color: var(--text-muted); transition: var(--transition); }
+.social-link:hover { background: var(--gold); transform: scale(1.1); border-color: var(--gold); }
 .social-link:hover svg { color: var(--bg); }
 
 .subscribe-form, .press-kit {
   background: var(--bg-panel); padding: 2rem; border-radius: var(--border-radius);
-  width: 100%; max-width: 450px; margin-inline: auto; /* Центрирование блоков */
+  width: 100%; max-width: 450px; margin-inline: auto;
   border: 1px solid rgba(255,255,255,0.05); text-align: center;
 }
 #newsletter-form { display: flex; flex-direction: column; gap: 0.8rem; margin: 1rem 0; }
@@ -164,7 +227,7 @@ section {
 }
 .press-kit a:hover { color: var(--gold); border-color: var(--gold); }
 
-/* FOOTER (ИСПРАВЛЕНО ЦЕНТРИРОВАНИЕ) */
+/* FOOTER */
 .footer {
   padding: 3rem 1rem;
   max-width: var(--container);
@@ -175,44 +238,6 @@ section {
 .footer-links { margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a { color: var(--text-muted); text-decoration: none; }
 .footer-links a:hover { color: var(--gold); }
-
-/* Sections */
-section { 
-  padding: 6rem 1rem; 
-  max-width: var(--container); 
-  margin: 0 auto; 
-  position: relative;
-}
-
-/* HERO */
-.hero {
-  min-height: 100vh; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  text-align: center; 
-  padding: 6rem 1rem 3rem; 
-  position: relative;
-  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.15) 0%, transparent 60%);
-}
-
-/* ABOUT (Концепция) */
-.about {
-  position: relative;
-  background: radial-gradient(circle at 50% 40%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
-}
-
-/* MEDIA (Медиа) */
-.media {
-  position: relative;
-  background: radial-gradient(circle at 50% 50%, rgba(197, 165, 90, 0.06) 0%, transparent 65%);
-}
-
-/* COMMUNITY (Сообщество и Пресса) */
-.community {
-  position: relative;
-  background: radial-gradient(circle at 50% 35%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
-}
 
 /* ANIMATIONS */
 .fade-up { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
@@ -226,56 +251,6 @@ section {
 @media (min-width: 1024px) {
   .subscribe-form, .press-kit { max-width: 500px; }
 }
-/* --- Обновлённые стили соцсетей --- */
-.socials { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-.social-link {
-  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-  background: var(--bg-panel); border-radius: 50%; transition: var(--transition);
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.social-link svg { width: 20px; height: 20px; color: var(--text-muted); transition: var(--transition); }
-.social-link:hover { background: var(--gold); transform: scale(1.1); border-color: var(--gold); }
-.social-link:hover svg { color: var(--bg); }
-
-/* --- Дребезжащие струны --- */
-#bg-strings {
-  position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
-}
-.string {
-  position: absolute;
-  top: 0; left: var(--pos);
-  width: 1.5px; height: 100vh; /* Полная высота экрана */
-  background: linear-gradient(180deg,
-    transparent 0%,
-    rgba(197, 165, 90, 0.12) 35%,
-    #D4B86A 50%, /* Яркое ядро в центре */
-    rgba(197, 165, 90, 0.12) 65%,
-    transparent 100%);
-  box-shadow: 0 0 5px rgba(197, 165, 90, 0.15);
-  opacity: 0.12;
-  border-radius: 1px;
-  transform-origin: center center; /* Вибрация от центра */
-  animation: stringPluck var(--dur) cubic-bezier(0.25, 0.1, 0.25, 1) infinite var(--delay);
-}
-
-@keyframes stringPluck {
-  /* 0-14% - фаза "щипка" и затухающей вибрации */
-  0%   { transform: translateX(0) scaleX(1); opacity: 0.12; }
-  2%   { transform: translateX(3px) scaleX(1.08); opacity: 0.38; box-shadow: 0 0 12px rgba(212, 184, 106, 0.5); }
-  4%   { transform: translateX(-2.2px) scaleX(0.96); opacity: 0.28; }
-  6%   { transform: translateX(1.4px) scaleX(1.04); opacity: 0.22; }
-  8%   { transform: translateX(-0.9px) scaleX(1.02); opacity: 0.18; }
-  10%  { transform: translateX(0.5px) scaleX(1); opacity: 0.15; }
-  12%  { transform: translateX(-0.2px) scaleX(0.99); opacity: 0.13; }
-  14%, 100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 5px rgba(197, 165, 90, 0.15); }
-}
-
-/* На мобильных чуть меньше контраст, чтобы не мешать чтению */
-@media (max-width: 768px) {
-  .string { opacity: 0.08; }
-}
-
-/* На мобильных чуть меньше яркость, чтобы не мешать чтению */
 @media (max-width: 768px) {
   .string { opacity: 0.08; }
 }
