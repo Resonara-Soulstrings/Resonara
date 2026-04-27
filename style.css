@@ -103,33 +103,37 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 0.5rem auto 0; border-radius: 2px; }
 
 /* КРУГОВЫЕ СВЕЧЕНИЯ */
-.hero::before, .about::before, .media::before, .community::before, .press::before {
+/* СВЕЧЕНИЯ — Hero яркий, остальные почти незаметны */
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 70vmax;
+  height: 70vmax;
+  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.25) 0%, rgba(197, 165, 90, 0.05) 50%, transparent 80%);
+  border-radius: 50%;
+  filter: blur(25px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Остальные секции — очень слабое свечение (почти незаметно) */
+.about::before, .media::before, .community::before, .press::before {
   content: '';
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 70vmax;
-  height: 70vmax;
-  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.08) 0%, rgba(197, 165, 90, 0.02) 45%, transparent 80%);
+  width: 50vmax;
+  height: 50vmax;
+  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.04) 0%, transparent 75%);
   border-radius: 50%;
   filter: blur(20px);
   pointer-events: none;
   z-index: 0;
 }
-
-.hero::before { top: 40%; }
-.about::before { top: 45%; }
-.media::before { top: 50%; }
-.community::before { top: 40%; }
-.press::before { top: 45%; background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.06) 0%, rgba(197, 165, 90, 0.01) 50%, transparent 85%); filter: blur(20px); }
-.hero::before { top: 40%; }
-.about::before { top: 45%; }
-.media::before { top: 50%; }
-.community::before { top: 40%; }
-.press::before { top: 45%; background: radial-gradient(circle, rgba(197, 165, 90, 0.08) 0%, transparent 60%); }
-
-section > * { position: relative; z-index: 2; }
 
 /* HERO */
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 6rem 1rem 3rem; }
