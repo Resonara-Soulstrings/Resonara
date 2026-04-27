@@ -126,3 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
   });
 });
+  // --- ГЕНЕРАТОР ФОНОВЫХ ЧАСТИЦ ---
+  const particleContainer = document.getElementById('bg-particles');
+  const particleCount = 45; // Количество частиц (можно менять: 30-60)
+
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    
+    // Рандомизация размера, позиции и скорости
+    const size = Math.random() * 4 + 2; // 2px - 6px
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${Math.random() * 100}%`;
+    p.style.animationDuration = `${Math.random() * 12 + 10}s`; // 10s - 22s
+    p.style.animationDelay = `${Math.random() * 15}s`;
+    
+    particleContainer.appendChild(p);
+  }
