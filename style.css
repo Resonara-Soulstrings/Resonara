@@ -200,25 +200,40 @@ section {
 .social-link:hover svg { color: var(--bg); }
 
 /* --- Дребезжащие струны --- */
+/* --- Дребезжащие струны --- */
 #bg-strings {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 1; overflow: hidden;
 }
 .string {
-  position: absolute; top: -20%; left: var(--pos);
-  width: 1px; height: 140%;
-  background: linear-gradient(to bottom, transparent 15%, var(--gold) 50%, transparent 85%);
-  box-shadow: 0 0 6px var(--gold);
-  opacity: 0.12;
+  position: absolute; 
+  top: -50%; 
+  left: var(--pos, 50%);
+  width: 1px; 
+  height: 200%;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(197, 165, 90, 0.15) 40%, 
+    rgba(197, 165, 90, 0.4) 50%, 
+    rgba(197, 165, 90, 0.15) 60%, 
+    transparent 100%);
+  box-shadow: 0 0 8px rgba(197, 165, 90, 0.3);
+  opacity: 0.15;
   transform-origin: center center;
-  animation: stringVibrate var(--dur) ease-in-out infinite var(--delay);
+  transform: rotate(var(--rotate, 65deg));
+  animation: stringVibrate var(--dur, 6s) ease-in-out infinite var(--delay, 0s);
 }
 @keyframes stringVibrate {
-  0%, 100% { transform: scaleX(1) translateX(0); opacity: 0.12; }
-  20%      { transform: scaleX(1.6) translateX(-1.5px); opacity: 0.28; }
-  40%      { transform: scaleX(0.6) translateX(1px); opacity: 0.15; }
-  60%      { transform: scaleX(1.9) translateX(-0.8px); opacity: 0.32; }
-  80%      { transform: scaleX(0.7) translateX(0.5px); opacity: 0.18; }
+  0%, 100% { transform: rotate(var(--rotate, 65deg)) scaleX(1) translateX(0); opacity: 0.15; }
+  20%      { transform: rotate(calc(var(--rotate, 65deg) + 2deg)) scaleX(1.8) translateX(-1px); opacity: 0.3; }
+  40%      { transform: rotate(calc(var(--rotate, 65deg) - 1deg)) scaleX(0.7) translateX(0.5px); opacity: 0.2; }
+  60%      { transform: rotate(calc(var(--rotate, 65deg) + 1.5deg)) scaleX(2) translateX(-0.5px); opacity: 0.35; }
+  80%      { transform: rotate(calc(var(--rotate, 65deg) - 0.5deg)) scaleX(0.8) translateX(0.3px); opacity: 0.22; }
+}
+
+/* Адаптив для струн: на мобильных чуть прозрачнее */
+@media (max-width: 768px) {
+  .string { opacity: 0.08; }
 }
 
 /* Адаптив для струн: на мобильных чуть прозрачнее, чтобы не мешать чтению */
