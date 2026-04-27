@@ -25,6 +25,9 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* --- ЧАСТИЦЫ --- */
@@ -153,7 +156,7 @@ section > * { position: relative; z-index: 2; }
 .press-link:hover { color: var(--gold); border-color: var(--gold); }
 
 /* FOOTER */
-.footer { padding: 2rem 1rem; max-width: var(--container); margin-inline: auto; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.9rem; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+.footer { padding: 2rem 1rem; max-width: var(--container); margin-inline: auto; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.9rem; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 0; }
 .footer-left { display: flex; flex-direction: column; gap: 0.5rem; }
 .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a { color: var(--text-muted); text-decoration: none; }
@@ -183,19 +186,4 @@ section > * { position: relative; z-index: 2; }
   .footer { flex-direction: column; text-align: center; align-items: center; }
   .footer-left { align-items: center; }
   .footer-links { justify-content: center; }
-}
-
-/* Прижимаем футер к низу */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;          /* минимальная высота = высота экрана */
-}
-
-main {
-  flex: 1;                    /* занимает всё свободное место */
-}
-
-.footer {
-  margin-top: auto;           /* прижимает футер к низу */
 }
