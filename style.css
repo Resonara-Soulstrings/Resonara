@@ -167,6 +167,10 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 
 /* COMMUNITY & FORMS */
 .subscribe-form { background: var(--bg-panel); padding: 2rem; border-radius: var(--border-radius); width: 100%; max-width: 450px; margin-inline: auto; border: 1px solid rgba(255,255,255,0.05); }
+.press-card { background: var(--bg-panel); padding: 2rem; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 450px; margin-inline: auto; }
+.press-grid { display: flex; flex-direction: column; gap: 0.8rem; align-items: center; }
+.press-link { color: var(--karma-high); text-decoration: none; border-bottom: 1px dotted currentColor; transition: var(--transition); padding-bottom: 2px; }
+.press-link:hover { color: var(--gold); border-color: var(--gold); }
 #newsletter-form { display: flex; flex-direction: column; gap: 0.8rem; margin: 1rem 0; }
 #newsletter-form input { padding: 0.8rem; background: var(--bg); border: 1px solid rgba(255,255,255,0.1); color: var(--text); border-radius: var(--border-radius); font-size: 1rem; width: 100%; }
 #newsletter-form input:focus { outline: none; border-color: var(--gold); }
