@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #fff;
+    line-height: 1.6;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #f0f, #0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Блок ссылок */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.btn {
+    display: block;
+    padding: 1rem;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn:hover {
+    transform: scale(1.02);
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+
+/* Специфичные цвета для соцсетей (опционально) */
+.btn.steam { background: #171a21; }
+.btn.twitter { background: #1da1f2; }
+.btn.discord { background: #5865f2; }
+.btn.youtube { background: #ff0000; }
+
+/* Медиа-галерея */
+.media {
+    margin: 3rem 0;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.gallery img, .gallery video {
+    max-width: 100%;
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* Блок разработки */
+.devlog {
+    background: rgba(0,0,0,0.4);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin: 2rem 0;
+}
+
+footer {
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}

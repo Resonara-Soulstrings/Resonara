@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название игры | официальный хаб</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Название игры</h1>
+            <p class="tagline">Ваш слоган или короткое описание</p>
+        </header>
+
+        <!-- Блок с ссылками (Linktree-часть) -->
+        <div class="links">
+            <a href="https://store.steampowered.com/app/123456" target="_blank" class="btn steam">Steam</a>
+            <a href="https://twitter.com/..." target="_blank" class="btn twitter">Twitter</a>
+            <a href="https://discord.gg/..." target="_blank" class="btn discord">Discord</a>
+            <a href="https://www.youtube.com/..." target="_blank" class="btn youtube">YouTube</a>
+            <!-- Добавь любые нужные соцсети -->
+        </div>
+
+        <!-- Медиа-галерея -->
+        <div class="media">
+            <h2>Медиа</h2>
+            <div class="gallery">
+                <img src="images/screenshot1.png" alt="Скриншот 1">
+                <img src="images/screenshot2.png" alt="Скриншот 2">
+                <img src="images/promo.gif" alt="Анимированный промо">
+                <!-- Видео можно вставить так: -->
+                <video controls>
+                    <source src="videos/trailer.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+        </div>
+
+        <!-- Блок с информацией о разработке -->
+        <div class="devlog">
+            <h2>О разработке</h2>
+            <p>Краткий рассказ о том, как идёт создание игры, какие технологии используются, и ссылка на портфолио команды, если нужно.</p>
+            <p>Подписывайтесь на наши соцсети, чтобы следить за новостями!</p>
+        </div>
+
+        <footer>
+            <p>© 2025 Название команды. Все права защищены.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
