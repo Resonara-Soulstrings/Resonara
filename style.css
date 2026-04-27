@@ -274,27 +274,10 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   .container, section, .hero-content, .about-grid, .media-grid { overflow-x: hidden; }
   .about-grid, .media-grid { grid-template-columns: 1fr; gap: 1rem; }
   section { padding: 3rem 1rem; }
-}
-  .footer-socials {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    max-width: 100%;
-  }
-
-  .footer-socials .social-link {
-    width: 36px;
-    height: 36px;
-  }
-
-  .footer-socials .social-link svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Если иконок слишком много, можно уменьшить отступы */
-  .footer-right {
-    width: 100%;
-    justify-content: center;
-  }
+  .footer-socials { flex-wrap: wrap; justify-content: center; gap: 0.6rem; max-width: 100%; }
+  .footer-socials .social-link { width: 36px; height: 36px; }
+  .footer-socials .social-link svg { width: 16px; height: 16px; }
+  .footer-right { width: 100%; justify-content: center; }
+  .nav { flex-direction: column; gap: 0.5rem; }
+  .header-socials { flex-wrap: wrap; justify-content: center; }
 }
