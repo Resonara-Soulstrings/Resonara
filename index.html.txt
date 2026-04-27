@@ -2,52 +2,101 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Название игры | официальный хаб</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Resonara — официальный сайт игры</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Подключим современный шрифт для красоты -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Название игры</h1>
-            <p class="tagline">Ваш слоган или короткое описание</p>
+    <!-- Фоновый элемент (может быть гифка или градиент) -->
+    <div class="bg-overlay"></div>
+    
+    <main class="container">
+        <!-- Шапка с логотипом и названием -->
+        <header class="hero">
+            <div class="logo-wrapper">
+                <!-- Замени на свой логотип -->
+                <img src="media/logo.png" alt="Resonara" class="logo">
+            </div>
+            <h1>Resonara</h1>
+            <p class="tagline">Игра о струнах души и забытых мелодиях</p>
         </header>
 
-        <!-- Блок с ссылками (Linktree-часть) -->
-        <div class="links">
-            <a href="https://store.steampowered.com/app/123456" target="_blank" class="btn steam">Steam</a>
-            <a href="https://twitter.com/..." target="_blank" class="btn twitter">Twitter</a>
-            <a href="https://discord.gg/..." target="_blank" class="btn discord">Discord</a>
-            <a href="https://www.youtube.com/..." target="_blank" class="btn youtube">YouTube</a>
-            <!-- Добавь любые нужные соцсети -->
-        </div>
+        <!-- Блок с основными ссылками (стиль как большие кнопки) -->
+        <section class="links-grid">
+            <a href="https://store.steampowered.com/app/XXXXXXXX" target="_blank" rel="noopener" class="link-card steam">
+                <span>🎮</span> Добавить в список желаемого
+            </a>
+            <a href="https://discord.gg/ваша-ссылка" target="_blank" class="link-card discord">
+                <span>💬</span> Discord-сообщество
+            </a>
+            <a href="https://t.me/ваш-телеграм" target="_blank" class="link-card telegram">
+                <span>📢</span> Telegram-канал
+            </a>
+            <a href="https://www.youtube.com/@ваш-канал" target="_blank" class="link-card youtube">
+                <span>▶️</span> Трейлеры и стримы
+            </a>
+            <a href="https://vk.com/ваш-паблик" target="_blank" class="link-card vk">
+                <span>🌐</span> ВКонтакте
+            </a>
+            <a href="#devlog" class="link-card devlog">
+                <span>📖</span> Дневник разработки
+            </a>
+        </section>
 
-        <!-- Медиа-галерея -->
-        <div class="media">
-            <h2>Медиа</h2>
-            <div class="gallery">
-                <img src="images/screenshot1.png" alt="Скриншот 1">
-                <img src="images/screenshot2.png" alt="Скриншот 2">
-                <img src="images/promo.gif" alt="Анимированный промо">
-                <!-- Видео можно вставить так: -->
-                <video controls>
-                    <source src="videos/trailer.mp4" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
+        <!-- Блок с медиа: GIF / видео / скриншоты -->
+        <section class="media-showcase">
+            <h2>⚡ Геймплей и атмосфера</h2>
+            <div class="media-grid">
+                <!-- Основной GIF-ролик (гифка весёлая) -->
+                <div class="media-item">
+                    <img src="media/gameplay.gif" alt="Геймплей Resonara">
+                </div>
+                <!-- Скриншоты в сетке -->
+                <div class="media-item">
+                    <img src="media/screenshot1.png" alt="Скриншот 1">
+                </div>
+                <div class="media-item">
+                    <img src="media/screenshot2.png" alt="Скриншот 2">
+                </div>
+                <!-- Можно вставить короткое видео -->
+                <div class="media-item video">
+                    <video controls poster="media/poster.jpg">
+                        <source src="media/teaser.mp4" type="video/mp4">
+                    </video>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Блок с информацией о разработке -->
-        <div class="devlog">
-            <h2>О разработке</h2>
-            <p>Краткий рассказ о том, как идёт создание игры, какие технологии используются, и ссылка на портфолио команды, если нужно.</p>
-            <p>Подписывайтесь на наши соцсети, чтобы следить за новостями!</p>
-        </div>
+        <!-- Раздел "О разработке" с полезной инфой -->
+        <section class="devlog" id="devlog">
+            <h2>📝 Дневник разработки</h2>
+            <div class="devlog-entry">
+                <span class="date">15 апреля 2026</span>
+                <h3>Настроили сайт и домен!</h3>
+                <p>Теперь у Resonara есть собственный уголок в интернете. Добавили поддержку GitHub Pages, настроили DNS — всё работает как часы. Скоро покажем первый трейлер.</p>
+            </div>
+            <div class="devlog-entry">
+                <span class="date">10 апреля 2026</span>
+                <h3>Прототип механики "Струны" готов</h3>
+                <p>Игрок сможет взаимодействовать с музыкальными инструментами, создавая собственные мелодии. В ближайшее время запишем геймплейное видео.</p>
+            </div>
+            <!-- Добавляй новые записи простым копированием блока -->
+            <div class="devlog-entry">
+                <span class="date">1 апреля 2026</span>
+                <h3>Старт разработки</h3>
+                <p>Команда сформирована, первые арты и концепты уже есть. Подписывайтесь на наши соцсети, чтобы не пропустить новости!</p>
+            </div>
+        </section>
 
+        <!-- Футер с копирайтом и ссылками на политику (опционально) -->
         <footer>
-            <p>© 2025 Название команды. Все права защищены.</p>
+            <p>© 2026 Resonara Team. All rights reserved.</p>
+            <p><a href="mailto:team@resonara.ru">team@resonara.ru</a></p>
         </footer>
-    </div>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
