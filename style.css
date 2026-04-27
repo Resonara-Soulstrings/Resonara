@@ -16,6 +16,12 @@
   --container: min(92%, 1100px);
 }
 
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -27,7 +33,8 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
 }
 
 /* --- ЧАСТИЦЫ --- */
@@ -97,7 +104,7 @@ body {
 .karma-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--karma-low), var(--gold), var(--karma-high)); transition: width 0.1s linear; }
 
 /* SECTIONS & LAYOUT */
-main { position: relative; z-index: 2; flex-grow: 1; }
+main { position: relative; z-index: 2; flex: 1 0 auto; }
 section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; position: relative; }
 .section-title { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 3rem; position: relative; z-index: 2; }
 .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 0.5rem auto 0; border-radius: 2px; }
@@ -173,7 +180,7 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 .press-link:hover { color: var(--gold); border-color: var(--gold); }
 
 /* FOOTER */
-.footer { padding: 2rem 1rem; max-width: var(--container); margin-inline: auto; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.9rem; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 0; }
+.footer { padding: 2rem 1rem; max-width: var(--container); margin-inline: auto; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.9rem; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; flex-shrink: 0; }
 .footer-left { display: flex; flex-direction: column; gap: 0.5rem; }
 .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a { color: var(--text-muted); text-decoration: none; }
