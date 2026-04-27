@@ -110,6 +110,7 @@ section {
   max-width: var(--container);
   margin-inline: auto;
   position: relative;
+  overflow: hidden;
 }
 
 .section-title {
@@ -121,7 +122,9 @@ section {
   margin: 0.5rem auto 0; border-radius: 2px;
 }
 
-/* HERO */
+/* === КРУГОВЫЕ СВЕЧЕНИЯ ДЛЯ СЕКЦИЙ === */
+
+/* HERO - самое сильное свечение */
 .hero {
   min-height: 100vh; 
   display: flex; 
@@ -130,7 +133,24 @@ section {
   padding: 6rem 1rem 3rem; 
   position: relative;
 }
-.hero-content { max-width: 800px; z-index: 2; }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120vmax;
+  height: 120vmax;
+  background: radial-gradient(circle, 
+    rgba(197, 165, 90, 0.15) 0%, 
+    rgba(197, 165, 90, 0.08) 25%,
+    rgba(197, 165, 90, 0.02) 50%,
+    transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-content { max-width: 800px; z-index: 2; position: relative; }
 .hero-title { 
   font-family: var(--font-heading); 
   font-size: clamp(2.5rem, 8vw, 4.5rem); 
@@ -142,13 +162,76 @@ section {
   color: var(--text-muted); 
   margin-bottom: 2rem; 
 }
-.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; z-index: 2; }
+.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; z-index: 2; position: relative; }
+
+/* ABOUT (Концепция) - свечение ниже */
+.about {
+  position: relative;
+}
+.about::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vmax;
+  height: 100vmax;
+  background: radial-gradient(circle, 
+    rgba(197, 165, 90, 0.12) 0%, 
+    rgba(197, 165, 90, 0.06) 30%,
+    transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* MEDIA (Медиа) - свечение по центру */
+.media {
+  position: relative;
+}
+.media::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110vmax;
+  height: 110vmax;
+  background: radial-gradient(circle, 
+    rgba(197, 165, 90, 0.10) 0%, 
+    rgba(197, 165, 90, 0.05) 30%,
+    transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* COMMUNITY (Сообщество и Пресса) - свечение выше */
+.community {
+  position: relative;
+}
+.community::before {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vmax;
+  height: 100vmax;
+  background: radial-gradient(circle, 
+    rgba(197, 165, 90, 0.12) 0%, 
+    rgba(197, 165, 90, 0.06) 30%,
+    transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
 
 /* BUTTONS */
 .btn {
   padding: 0.8rem 1.8rem; border-radius: var(--border-radius); font-weight: 600;
   text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem;
-  z-index: 2;
+  z-index: 2; position: relative;
 }
 .btn-primary { background: var(--gold); color: var(--bg); }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(197, 165, 90, 0.4); }
@@ -205,7 +288,7 @@ section {
 }
 .press-kit a:hover { color: var(--gold); border-color: var(--gold); }
 
-/* FOOTER (Вернут оригинальный стиль + новая раскладка) */
+/* FOOTER */
 .footer {
   padding: 2rem 1rem;
   max-width: var(--container);
