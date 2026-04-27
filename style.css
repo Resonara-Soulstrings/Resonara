@@ -110,6 +110,7 @@ section {
   max-width: var(--container);
   margin-inline: auto;
   position: relative;
+  overflow: hidden; /* Предотвращает выход градиента за границы */
 }
 
 .section-title {
@@ -121,15 +122,14 @@ section {
   margin: 0.5rem auto 0; border-radius: 2px;
 }
 
-/* HERO - самое сильное свечение */
+/* HERO - самое насыщенное свечение */
 .hero {
   min-height: 100vh; 
   display: flex; 
   align-items: center; 
   justify-content: center;
   padding: 6rem 1rem 3rem; 
-  position: relative;
-  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.15) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 35%, rgba(197, 165, 90, 0.15) 0%, transparent 65%);
 }
 .hero-content { max-width: 800px; }
 .hero-title { 
@@ -145,19 +145,19 @@ section {
 }
 .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-/* ABOUT (Концепция) - среднее свечение */
+/* ABOUT (Концепция) - свечение чуть ниже, за карточками */
 .about {
-  background: radial-gradient(circle at 50% 40%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 45%, rgba(197, 165, 90, 0.10) 0%, transparent 70%);
 }
 
-/* MEDIA (Медиа) - среднее свечение */
+/* MEDIA (Медиа) - свечение по центру сетки */
 .media {
-  background: radial-gradient(circle at 50% 50%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(197, 165, 90, 0.10) 0%, transparent 70%);
 }
 
-/* COMMUNITY (Сообщество и Пресса) - среднее свечение */
+/* COMMUNITY (Сообщество и Пресса) - свечение выше, за формой */
 .community {
-  background: radial-gradient(circle at 50% 35%, rgba(197, 165, 90, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 40%, rgba(197, 165, 90, 0.10) 0%, transparent 70%);
 }
 
 /* BUTTONS */
