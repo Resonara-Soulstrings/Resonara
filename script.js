@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('lang', lang);
   }
 
-  // Загрузка сохранённого языка
   const savedLang = localStorage.getItem('lang');
   if (savedLang && translations[savedLang]) setLanguage(savedLang);
 
@@ -82,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang === 'ru' ? 'en' : 'ru');
   });
 
-  // 3. Анимации при скролле (Intersection Observer)
+  // 3. Анимации при скролле
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -94,19 +93,33 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // 4. Индикатор кармы (имитация прогресса скролла)
+  // 4. Индикатор кармы
   const karmaFill = document.querySelector('.karma-fill');
   window.addEventListener('scroll', () => {
     const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
     const width = Math.min(Math.max(scrollPercent * 100, 0), 100);
     karmaFill.style.width = `${width}%`;
-    
-    // Смена оттенка в зависимости от положения:
-    const hue = Math.round(scrollPercent * 180); // 0 (красный) -> 180 (синий)
+    const hue = Math.round(scrollPercent * 180);
     karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
   });
 
-  // 5. Форма подписки (заглушка под API)
+  // 5. Генератор глобальных частиц
+  const particleContainer = document.getElementById('bg-particles');
+  const particleCount = 45;
+
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    const size = Math.random() * 4 + 2;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${Math.random() * 100}%`;
+    p.style.animationDuration = `${Math.random() * 12 + 10}s`;
+    p.style.animationDelay = `${Math.random() * 15}s`;
+    particleContainer.appendChild(p);
+  }
+
+  // 6. Форма подписки
   const form = document.getElementById('newsletter-form');
   const emailInput = document.getElementById('emailInput');
   const successMsg = document.querySelector('.form-success');
@@ -116,31 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = emailInput.value.trim();
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
 
-    // Имитация отправки
     form.querySelector('button').textContent = '...';
     setTimeout(() => {
       form.style.display = 'none';
       successMsg.classList.remove('hidden');
-      console.log('Subscribed:', email);
-      // Здесь подключить Buttondown, MailerLite или Telegram Bot API
     }, 800);
   });
 });
-  // --- ГЕНЕРАТОР ФОНОВЫХ ЧАСТИЦ ---
-  const particleContainer = document.getElementById('bg-particles');
-  const particleCount = 45; // Количество частиц (можно менять: 30-60)
-
-  for (let i = 0; i < particleCount; i++) {
-    const p = document.createElement('div');
-    p.classList.add('particle');
-    
-    // Рандомизация размера, позиции и скорости
-    const size = Math.random() * 4 + 2; // 2px - 6px
-    p.style.width = `${size}px`;
-    p.style.height = `${size}px`;
-    p.style.left = `${Math.random() * 100}%`;
-    p.style.animationDuration = `${Math.random() * 12 + 10}s`; // 10s - 22s
-    p.style.animationDelay = `${Math.random() * 15}s`;
-    
-    particleContainer.appendChild(p);
-  }
