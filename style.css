@@ -103,7 +103,7 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 .hero::before, .about::before, .media::before, .community::before, .press::before {
   content: ''; position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  width: 120vmax; height: 120vmax;
+  width: 60vmax; height: 60vmax;
   background: radial-gradient(circle, rgba(197, 165, 90, 0.12) 0%, rgba(197, 165, 90, 0.04) 35%, transparent 65%);
   border-radius: 50%; pointer-events: none; z-index: 0;
 }
