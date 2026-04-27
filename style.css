@@ -16,14 +16,13 @@
   --container: min(92%, 1100px);
 }
 
+/* HTML – только фон, прокрутку отдаём body */
 html {
   height: 100%;
   margin: 0;
   padding: 0;
-  max-width: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
-  height: auto;
+  overflow-y: hidden; /* ← убираем прокрутку на html */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,16 +33,14 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
-  text-align: center;
+  overflow-y: auto;   /* ← единственный вертикальный скролл */
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: 100%;
   margin: 0;
   padding: 0;
-  max-width: 100%;
-  height: auto;
-  overflow-x: hidden;
-  overflow-y: visible;
+  width: 100%;
+  text-align: center;
 }
 
 /* --- ЧАСТИЦЫ --- */
@@ -133,8 +130,6 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   pointer-events: none;
   z-index: 0;
 }
-
-/* Остальные секции — очень слабое свечение (почти незаметно) */
 .about::before, .media::before, .community::before, .press::before {
   content: '';
   position: absolute;
@@ -187,10 +182,6 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 .form-success { color: var(--gold); margin-top: 0.5rem; font-weight: 600; }
 .hidden { display: none; }
 
-.press-grid { display: flex; flex-direction: column; gap: 0.8rem; align-items: center; }
-.press-link { color: var(--karma-high); text-decoration: none; border-bottom: 1px dotted currentColor; transition: var(--transition); padding-bottom: 2px; }
-.press-link:hover { color: var(--gold); border-color: var(--gold); }
-
 /* FOOTER */
 .footer {
   width: 100%; 
@@ -200,15 +191,13 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   padding: 2rem 0;
   background: var(--bg);
   border-top: 1px solid rgba(255,255,255,0.05);
-  
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
-
-/* --- Контейнер внутри футера (Ограничивает текст) --- */
 .footer-inner {
   width: 100%;
   max-width: var(--container);
@@ -219,20 +208,16 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   flex-wrap: wrap;
   gap: 1.5rem;
 }
-
 .footer-left {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a { color: var(--text-muted); text-decoration: none; }
 .footer-links a:hover { color: var(--gold); }
-
 .footer-right { display: flex; align-items: center; }
 .footer-socials { display: flex; gap: 0.8rem; }
-
 .footer-socials .social-link { 
   width: 40px; height: 40px; 
   display: flex; align-items: center; justify-content: center; 
@@ -253,7 +238,7 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   .community-wrapper { grid-template-columns: 1fr 1fr; }
   .press-kit { grid-column: 1 / -1; }
   .footer { justify-content: center; }
-  .footer-inner { flex-direction: column;  text-align: center;  align-items: center; }
+  .footer-inner { flex-direction: column; text-align: center; align-items: center; }
   .footer-left { align-items: center; }
   .footer-links { justify-content: center; }
 }
@@ -266,12 +251,12 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   .footer-left { align-items: center; }
   .footer-links { justify-content: center; }
   .hero::before { width: 90vmax; height: 90vmax; background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.35) 0%, rgba(197, 165, 90, 0.1) 60%, transparent 85%); filter: blur(30px); }
-  .about::before, .media::before, .community::before, .press::before { width: 80vmax; height: 80vmax; background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.2) 0%, rgba(197, 165, 90, 0.05) 70%, transparent 90%); filter: blur(25px); }
-  .about::before, .media::before, .community::before, .press::before { top: 60%; }
+  .about::before, .media::before, .community::before, .press::before { width: 80vmax; height: 80vmax; background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.2) 0%, rgba(197, 165, 90, 0.05) 70%, transparent 90%); filter: blur(25px); top: 60%; }
 }
 @media (max-width: 640px) {
-  body { overflow-x: hidden; width: 100%; }
-  .nav { flex-wrap: wrap; justify-content: center; gap: 0.8rem; padding: 1rem 0; }
+  html, body { overflow-x: clip; }
+  body { width: 100%; }
+  .nav { flex-wrap: wrap; justify-content: center; gap: 0.8rem; padding: 1rem 0; flex-direction: column; }
   .logo { font-size: 1.2rem; text-align: center; width: 100%; }
   .lang-toggle { font-size: 0.8rem; padding: 0.3rem 0.6rem; }
   .container, section, .hero-content, .about-grid, .media-grid { overflow-x: hidden; }
@@ -281,7 +266,5 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   .footer-socials .social-link { width: 36px; height: 36px; }
   .footer-socials .social-link svg { width: 16px; height: 16px; }
   .footer-right { width: 100%; justify-content: center; }
-  .nav { flex-direction: column; gap: 0.5rem; }
   .header-socials { flex-wrap: wrap; justify-content: center; }
 }
-
