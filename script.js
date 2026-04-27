@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Генератор глобальных частиц
   const particleContainer = document.getElementById('bg-particles');
-  const particleCount = 45;
+  const particleCount = 100;
 
   for (let i = 0; i < particleCount; i++) {
     const p = document.createElement('div');
