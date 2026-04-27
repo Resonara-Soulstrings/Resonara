@@ -193,17 +193,16 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 
 /* FOOTER */
 .footer {
-  width: 100%;           /* Растягиваем на всю ширину экрана */
-  max-width: none;       /* Убираем ограничение ширины */
-  margin-inline: 0;      /* Убираем авто-центровку самого блока */
-  margin-top: auto;      /* Прижимает футер к самому низу flex-контейнера */
-  
-  padding: 2rem 0;       /* Убираем боковые паддинги здесь, переносим во wrapper */
-  background: var(--bg); /* Фон футера совпадает с фоном сайта */
+  width: 100%; 
+  max-width: none;
+  margin-inline: 0;
+  margin-top: auto;
+  padding: 2rem 0;
+  background: var(--bg);
   border-top: 1px solid rgba(255,255,255,0.05);
   
   display: flex;
-  justify-content: center; /* Центрируем внутренний контент */
+  justify-content: center;
   align-items: center;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -212,8 +211,8 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
 /* --- Контейнер внутри футера (Ограничивает текст) --- */
 .footer-inner {
   width: 100%;
-  max-width: var(--container); /* Контент не разъезжается на широких экранах */
-  padding: 0 1rem;             /* Боковые отступы для текста */
+  max-width: var(--container);
+  padding: 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
