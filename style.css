@@ -201,51 +201,49 @@ section {
 
 /* --- Дребезжащие струны --- */
 #bg-strings {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 1; overflow: hidden;
+  position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
 }
 .string-wrap {
-  position: absolute; top: -30%; left: var(--pos);
-  width: 2px; height: 160%;
-  transform: rotate(var(--angle));
+  position: absolute;
+  top: 50%; left: var(--pos);
+  width: 1.5px; height: 250vh; /* Гарантирует покрытие от края до края при любом наклоне */
+  transform: translate(-50%, -50%) rotate(var(--angle));
   transform-origin: center center;
 }
 .string {
   width: 100%; height: 100%;
   
-/* Эффект металлической/эхо-струны */
-  background: linear-gradient(180deg, 
-    transparent 15%, 
-    rgba(197, 165, 90, 0.3) 35%, 
-    #ffffff 48%, 
-    rgba(197, 165, 90, 0.3) 60%, 
-    transparent 85%);
-  box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(197, 165, 90, 0.5);
-  opacity: 0.18;
+/* Металлический/эхо-эффект с фокусом свечения в центре */
+  background: linear-gradient(180deg,
+    transparent 25%,
+    rgba(197, 165, 90, 0.08) 45%,
+    #C5A55A 50%,
+    rgba(197, 165, 90, 0.08) 55%,
+    transparent 75%);
+  box-shadow: 0 0 6px rgba(197, 165, 90, 0.2);
+  opacity: 0.12;
   border-radius: 1px;
 
-/* Анимация дребезжания */
-  animation: stringPluck var(--dur) cubic-bezier(0.25, 0.1, 0.25, 1) infinite var(--delay);
+  /* Плавное затухающее колебание */
+  animation: stringPluck var(--dur) ease-out infinite var(--delay);
 }
 
 @keyframes stringPluck {
-  0%, 100% { transform: translateX(0) scaleX(1) skewX(0deg); opacity: 0.18; }
-  8%   { transform: translateX(3px) scaleX(1.15) skewX(3deg); opacity: 0.45; }
-  16%  { transform: translateX(-2.5px) scaleX(0.9) skewX(-2.5deg); opacity: 0.38; }
-  24%  { transform: translateX(1.8px) scaleX(1.08) skewX(1.8deg); opacity: 0.32; }
-  32%  { transform: translateX(-1.2px) scaleX(0.96) skewX(-1.2deg); opacity: 0.28; }
-  40%  { transform: translateX(0.8px) scaleX(1.04) skewX(0.8deg); opacity: 0.25; }
-  48%  { transform: translateX(-0.5px) scaleX(0.99) skewX(-0.5deg); opacity: 0.22; }
-  56%  { transform: translateX(0.3px) scaleX(1.01) skewX(0.3deg); opacity: 0.2; }
-  64%  { transform: translateX(-0.2px); opacity: 0.19; }
-  72%, 100% { transform: translateX(0) scaleX(1) skewX(0deg); opacity: 0.18; }
+  /* 0-15% - фаза "щипка" и затухающей вибрации */
+  0%   { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 6px rgba(197,165,90,0.2); }
+  2%   { transform: translateX(4.5px) scaleX(1.12); opacity: 0.35; box-shadow: 0 0 12px rgba(197,165,90,0.5); }
+  4%   { transform: translateX(-3.2px) scaleX(0.96); opacity: 0.28; }
+  6%   { transform: translateX(2.1px) scaleX(1.06); opacity: 0.22; }
+  8%   { transform: translateX(-1.4px) scaleX(0.98); opacity: 0.18; }
+  10%  { transform: translateX(0.8px) scaleX(1.02); opacity: 0.15; }
+  12%  { transform: translateX(-0.4px) scaleX(0.99); opacity: 0.13; }
+  14%  { transform: translateX(0.1px) scaleX(1.005); opacity: 0.12; }
+  15%  { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 6px rgba(197,165,90,0.2); }
+  /* 15-100% - фаза "покоя" (ожидание следующего щипка) */
+  100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 6px rgba(197,165,90,0.2); }
 }
 
-/* Мобильная оптимизация: чуть меньше вибрация, чтобы не рябило */
+/* На мобильных чуть меньше яркость, чтобы не мешать чтению */
 @media (max-width: 768px) {
-  .string { opacity: 0.12; }
-  @keyframes stringPluck {
-    8% { transform: translateX(2px) scaleX(1.1); }
-    16% { transform: translateX(-1.5px) scaleX(0.95); }
-  }
+  .string { opacity: 0.08; }
 }
