@@ -200,43 +200,50 @@ section {
 .social-link:hover svg { color: var(--bg); }
 
 /* --- Дребезжащие струны --- */
-/* --- Дребезжащие струны --- */
 #bg-strings {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 1; overflow: hidden;
 }
-.string {
-  position: absolute; 
-  top: -50%; 
-  left: var(--pos, 50%);
-  width: 1px; 
-  height: 200%;
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    rgba(197, 165, 90, 0.15) 40%, 
-    rgba(197, 165, 90, 0.4) 50%, 
-    rgba(197, 165, 90, 0.15) 60%, 
-    transparent 100%);
-  box-shadow: 0 0 8px rgba(197, 165, 90, 0.3);
-  opacity: 0.15;
+.string-wrap {
+  position: absolute; top: -30%; left: var(--pos);
+  width: 2px; height: 160%;
+  transform: rotate(var(--angle));
   transform-origin: center center;
-  transform: rotate(var(--rotate, 65deg));
-  animation: stringVibrate var(--dur, 6s) ease-in-out infinite var(--delay, 0s);
 }
-@keyframes stringVibrate {
-  0%, 100% { transform: rotate(var(--rotate, 65deg)) scaleX(1) translateX(0); opacity: 0.15; }
-  20%      { transform: rotate(calc(var(--rotate, 65deg) + 2deg)) scaleX(1.8) translateX(-1px); opacity: 0.3; }
-  40%      { transform: rotate(calc(var(--rotate, 65deg) - 1deg)) scaleX(0.7) translateX(0.5px); opacity: 0.2; }
-  60%      { transform: rotate(calc(var(--rotate, 65deg) + 1.5deg)) scaleX(2) translateX(-0.5px); opacity: 0.35; }
-  80%      { transform: rotate(calc(var(--rotate, 65deg) - 0.5deg)) scaleX(0.8) translateX(0.3px); opacity: 0.22; }
+.string {
+  width: 100%; height: 100%;
+  /* Эффект металлической/эхо-струны */
+  background: linear-gradient(180deg, 
+    transparent 15%, 
+    rgba(197, 165, 90, 0.3) 35%, 
+    #ffffff 48%, 
+    rgba(197, 165, 90, 0.3) 60%, 
+    transparent 85%);
+  box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(197, 165, 90, 0.5);
+  opacity: 0.18;
+  border-radius: 1px;
+  /* Анимация дребезжания */
+  animation: stringPluck var(--dur) cubic-bezier(0.25, 0.1, 0.25, 1) infinite var(--delay);
 }
 
-/* Адаптив для струн: на мобильных чуть прозрачнее */
-@media (max-width: 768px) {
-  .string { opacity: 0.08; }
+@keyframes stringPluck {
+  0%, 100% { transform: translateX(0) scaleX(1) skewX(0deg); opacity: 0.18; }
+  8%   { transform: translateX(3px) scaleX(1.15) skewX(3deg); opacity: 0.45; }
+  16%  { transform: translateX(-2.5px) scaleX(0.9) skewX(-2.5deg); opacity: 0.38; }
+  24%  { transform: translateX(1.8px) scaleX(1.08) skewX(1.8deg); opacity: 0.32; }
+  32%  { transform: translateX(-1.2px) scaleX(0.96) skewX(-1.2deg); opacity: 0.28; }
+  40%  { transform: translateX(0.8px) scaleX(1.04) skewX(0.8deg); opacity: 0.25; }
+  48%  { transform: translateX(-0.5px) scaleX(0.99) skewX(-0.5deg); opacity: 0.22; }
+  56%  { transform: translateX(0.3px) scaleX(1.01) skewX(0.3deg); opacity: 0.2; }
+  64%  { transform: translateX(-0.2px); opacity: 0.19; }
+  72%, 100% { transform: translateX(0) scaleX(1) skewX(0deg); opacity: 0.18; }
 }
 
-/* Адаптив для струн: на мобильных чуть прозрачнее, чтобы не мешать чтению */
+/* Мобильная оптимизация: чуть меньше вибрация, чтобы не рябило */
 @media (max-width: 768px) {
-  .string { opacity: 0.08; }
+  .string { opacity: 0.12; }
+  @keyframes stringPluck {
+    8% { transform: translateX(2px) scaleX(1.1); }
+    16% { transform: translateX(-1.5px) scaleX(0.95); }
+  }
 }
