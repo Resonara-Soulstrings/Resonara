@@ -78,7 +78,7 @@ body {
   14%, 100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 5px rgba(197, 165, 90, 0.15); }
 }
 
-/* HEADER (Стекло) */
+/* HEADER */
 .header {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
   background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(12px);
@@ -110,7 +110,6 @@ section {
   max-width: var(--container);
   margin-inline: auto;
   position: relative;
-  overflow: hidden; /* Обрезает выходящие за границы эффекты */
 }
 
 .section-title {
@@ -129,7 +128,7 @@ section {
   align-items: center; 
   justify-content: center;
   padding: 6rem 1rem 3rem; 
-  background: radial-gradient(circle at 50% 35%, rgba(197, 165, 90, 0.15) 0%, transparent 65%);
+  position: relative;
 }
 .hero-content { max-width: 800px; z-index: 2; }
 .hero-title { 
@@ -144,26 +143,6 @@ section {
   margin-bottom: 2rem; 
 }
 .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; z-index: 2; }
-
-/* КРУГЛЫЕ ФОНОВЫЕ СВЕЧЕНИЯ (Исправлено для ПК) */
-.about, .media, .community {
-  position: relative;
-}
-.about::before, .media::before, .community::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80vw; height: 80vw; /* Жёстко задаёт пропорции 1:1 → идеальный круг */
-  max-width: 1000px; max-height: 1000px;
-  background: radial-gradient(circle, rgba(197, 165, 90, 0.12) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-}
-/* Позиционирование центра свечения под контент каждой секции */
-.about::before { top: 45%; }
-.media::before { top: 50%; }
-.community::before { top: 40%; }
 
 /* BUTTONS */
 .btn {
@@ -198,15 +177,6 @@ section {
   max-width: 900px; margin-inline: auto;
   position: relative; z-index: 2;
 }
-.socials { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-.social-link {
-  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-  background: var(--bg-panel); border-radius: 50%; transition: var(--transition);
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.social-link svg { width: 20px; height: 20px; color: var(--text-muted); transition: var(--transition); }
-.social-link:hover { background: var(--gold); transform: scale(1.1); border-color: var(--gold); }
-.social-link:hover svg { color: var(--bg); }
 
 .subscribe-form, .press-kit {
   background: var(--bg-panel); padding: 2rem; border-radius: var(--border-radius);
@@ -235,14 +205,40 @@ section {
 }
 .press-kit a:hover { color: var(--gold); border-color: var(--gold); }
 
-/* FOOTER (Стиль как у хедера) */
+/* FOOTER (Вернут оригинальный стиль + новая раскладка) */
 .footer {
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
   max-width: var(--container);
   margin-inline: auto;
   border-top: 1px solid rgba(255,255,255,0.05);
-  color: var(--text-muted); font-size: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { color: var(--text-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--gold); }
+
+.footer-right { display: flex; align-items: center; }
+.footer-socials { display: flex; gap: 0.8rem; }
+.footer-socials .social-link {
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-panel); border-radius: 50%; transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.footer-socials .social-link svg { width: 18px; height: 18px; color: var(--text-muted); transition: var(--transition); }
+.footer-socials .social-link:hover { background: var(--gold); transform: scale(1.1); border-color: var(--gold); }
+.footer-socials .social-link:hover svg { color: var(--bg); }
 
 /* ANIMATIONS */
 .fade-up { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
@@ -258,4 +254,7 @@ section {
 }
 @media (max-width: 768px) {
   .string { opacity: 0.08; }
+  .footer { flex-direction: column; text-align: center; align-items: center; }
+  .footer-left { align-items: center; }
+  .footer-links { justify-content: center; }
 }
