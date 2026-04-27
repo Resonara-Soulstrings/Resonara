@@ -281,3 +281,36 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   .nav { flex-direction: column; gap: 0.5rem; }
   .header-socials { flex-wrap: wrap; justify-content: center; }
 }
+
+/* Убираем двойной вертикальный скролл на ПК */
+html {
+  overflow-y: auto;
+  height: auto;
+}
+body {
+  height: auto;
+  overflow-y: visible;
+}
+.hero {
+  min-height: calc(100vh - 6rem); /* компенсируем padding-верх */
+}
+
+/* Исправляем квадратное свечение на мобильных */
+@media (max-width: 768px) {
+  .hero::before, .about::before, .media::before, .community::before, .press::before {
+    border-radius: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+    will-change: transform;
+    filter: blur(20px); /* уменьшаем размытие, чтобы не артефачило */
+  }
+  .hero::before {
+    width: 85vmax;
+    height: 85vmax;
+    background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.35) 0%, rgba(197, 165, 90, 0.1) 60%, transparent 85%);
+  }
+  .about::before, .media::before, .community::before, .press::before {
+    width: 75vmax;
+    height: 75vmax;
+    background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.2) 0%, rgba(197, 165, 90, 0.05) 70%, transparent 90%);
+  }
+}
