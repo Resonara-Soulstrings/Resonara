@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mediaTitle: "Медиа",
       phVideo: "Трейлер скоро",
       phImg: "Изображение",
-      communityTitle: "Сообщество и Пресса",
+      communityTitle: "Сообщество",
       subscribeTitle: "Будь в курсе обновлений",
       subscribeBtn: "Подписаться",
       formNote: "Без спама. Только важные новости и инсайды разработки.",
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mediaTitle: "Media",
       phVideo: "Trailer coming soon",
       phImg: "Image",
-      communityTitle: "Community & Press",
+      communityTitle: "Community",
       subscribeTitle: "Stay updated",
       subscribeBtn: "Subscribe",
       formNote: "No spam. Only major dev updates and insights.",
@@ -77,9 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedLang = localStorage.getItem('lang');
   if (savedLang && translations[savedLang]) setLanguage(savedLang);
 
-  langBtn.addEventListener('click', () => {
-    setLanguage(currentLang === 'ru' ? 'en' : 'ru');
-  });
+  langBtn.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
 
   // 3. Анимации при скролле
   const observer = new IntersectionObserver((entries) => {
@@ -88,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.about-card, .media-item, .socials, .subscribe-form, .press-kit').forEach(el => {
+  document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid').forEach(el => {
     el.classList.add('fade-up');
     observer.observe(el);
   });
@@ -103,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
     karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
   });
 
-  // 5. Генератор глобальных частиц
+  // 5. Генератор частиц
   const particleContainer = document.getElementById('bg-particles');
-  const particleCount = 100;
+  const particleCount = 45;
 
   for (let i = 0; i < particleCount; i++) {
     const p = document.createElement('div');
