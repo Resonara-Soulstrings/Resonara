@@ -78,7 +78,7 @@ body {
   14%, 100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 5px rgba(197, 165, 90, 0.15); }
 }
 
-/* HEADER */
+/* HEADER (Стекло) */
 .header {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
   background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(12px);
@@ -110,19 +110,19 @@ section {
   max-width: var(--container);
   margin-inline: auto;
   position: relative;
-  overflow: hidden; /* Предотвращает выход градиента за границы */
+  overflow: hidden; /* Обрезает выходящие за границы эффекты */
 }
 
 .section-title {
   font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 3rem; position: relative;
+  margin-bottom: 3rem; position: relative; z-index: 2;
 }
 .section-title::after {
   content: ''; display: block; width: 60px; height: 3px; background: var(--gold);
   margin: 0.5rem auto 0; border-radius: 2px;
 }
 
-/* HERO - самое насыщенное свечение */
+/* HERO */
 .hero {
   min-height: 100vh; 
   display: flex; 
@@ -131,7 +131,7 @@ section {
   padding: 6rem 1rem 3rem; 
   background: radial-gradient(circle at 50% 35%, rgba(197, 165, 90, 0.15) 0%, transparent 65%);
 }
-.hero-content { max-width: 800px; }
+.hero-content { max-width: 800px; z-index: 2; }
 .hero-title { 
   font-family: var(--font-heading); 
   font-size: clamp(2.5rem, 8vw, 4.5rem); 
@@ -143,27 +143,33 @@ section {
   color: var(--text-muted); 
   margin-bottom: 2rem; 
 }
-.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; z-index: 2; }
 
-/* ABOUT (Концепция) - свечение чуть ниже, за карточками */
-.about {
-  background: radial-gradient(circle at 50% 45%, rgba(197, 165, 90, 0.10) 0%, transparent 70%);
+/* КРУГЛЫЕ ФОНОВЫЕ СВЕЧЕНИЯ (Исправлено для ПК) */
+.about, .media, .community {
+  position: relative;
 }
-
-/* MEDIA (Медиа) - свечение по центру сетки */
-.media {
-  background: radial-gradient(circle at 50% 50%, rgba(197, 165, 90, 0.10) 0%, transparent 70%);
+.about::before, .media::before, .community::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw; height: 80vw; /* Жёстко задаёт пропорции 1:1 → идеальный круг */
+  max-width: 1000px; max-height: 1000px;
+  background: radial-gradient(circle, rgba(197, 165, 90, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
 }
-
-/* COMMUNITY (Сообщество и Пресса) - свечение выше, за формой */
-.community {
-  background: radial-gradient(circle at 50% 40%, rgba(197, 165, 90, 0.10) 0%, transparent 70%);
-}
+/* Позиционирование центра свечения под контент каждой секции */
+.about::before { top: 45%; }
+.media::before { top: 50%; }
+.community::before { top: 40%; }
 
 /* BUTTONS */
 .btn {
   padding: 0.8rem 1.8rem; border-radius: var(--border-radius); font-weight: 600;
   text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem;
+  z-index: 2;
 }
 .btn-primary { background: var(--gold); color: var(--bg); }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(197, 165, 90, 0.4); }
@@ -174,6 +180,7 @@ section {
 .about-grid, .media-grid {
   display: grid; gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  position: relative; z-index: 2;
 }
 .about-card, .media-item {
   background: var(--bg-panel); padding: 1.5rem; border-radius: var(--border-radius);
@@ -189,6 +196,7 @@ section {
 .community-wrapper {
   display: grid; gap: 2rem; width: 100%;
   max-width: 900px; margin-inline: auto;
+  position: relative; z-index: 2;
 }
 .socials { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
 .social-link {
@@ -227,13 +235,22 @@ section {
 }
 .press-kit a:hover { color: var(--gold); border-color: var(--gold); }
 
-/* FOOTER */
+/* FOOTER (Стиль как у хедера) */
 .footer {
-  padding: 3rem 1rem;
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  padding: 2rem 1rem;
+  background: rgba(11, 12, 16, 0.85);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.footer p, .footer-links {
   max-width: var(--container);
   margin-inline: auto;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  color: var(--text-muted); font-size: 0.9rem;
 }
 .footer-links { margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a { color: var(--text-muted); text-decoration: none; }
