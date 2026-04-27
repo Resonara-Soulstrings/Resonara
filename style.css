@@ -206,41 +206,36 @@ section {
 .string-wrap {
   position: absolute;
   top: 50%; left: var(--pos);
-  width: 1.5px; height: 250vh; /* Гарантирует покрытие от края до края при любом наклоне */
+  width: 2px; /* Увеличена толщина с 1.5px до 2px */
+  height: 250vh;
   transform: translate(-50%, -50%) rotate(var(--angle));
   transform-origin: center center;
 }
 .string {
   width: 100%; height: 100%;
-  
-/* Металлический/эхо-эффект с фокусом свечения в центре */
+  /* Градиент: шире видимое ядро, мягче края */
   background: linear-gradient(180deg,
-    transparent 25%,
-    rgba(197, 165, 90, 0.08) 45%,
-    #C5A55A 50%,
-    rgba(197, 165, 90, 0.08) 55%,
-    transparent 75%);
-  box-shadow: 0 0 6px rgba(197, 165, 90, 0.2);
-  opacity: 0.12;
+    transparent 20%,
+    rgba(197, 165, 90, 0.25) 40%,
+    #D4B86A 50%, /* Чуть светлее для акцента */
+    rgba(197, 165, 90, 0.25) 60%,
+    transparent 80%);
+  /* Двойное свечение: внутреннее + внешнее рассеянное */
+  box-shadow: 0 0 4px rgba(212, 184, 106, 0.4), 
+              0 0 12px rgba(197, 165, 90, 0.15);
+  opacity: 0.18; /* Базовая видимость повышена, но остаётся неброской */
   border-radius: 1px;
-
-  /* Плавное затухающее колебание */
   animation: stringPluck var(--dur) ease-out infinite var(--delay);
 }
 
 @keyframes stringPluck {
-  /* 0-15% - фаза "щипка" и затухающей вибрации */
-  0%   { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 6px rgba(197,165,90,0.2); }
-  2%   { transform: translateX(4.5px) scaleX(1.12); opacity: 0.35; box-shadow: 0 0 12px rgba(197,165,90,0.5); }
-  4%   { transform: translateX(-3.2px) scaleX(0.96); opacity: 0.28; }
-  6%   { transform: translateX(2.1px) scaleX(1.06); opacity: 0.22; }
-  8%   { transform: translateX(-1.4px) scaleX(0.98); opacity: 0.18; }
-  10%  { transform: translateX(0.8px) scaleX(1.02); opacity: 0.15; }
-  12%  { transform: translateX(-0.4px) scaleX(0.99); opacity: 0.13; }
-  14%  { transform: translateX(0.1px) scaleX(1.005); opacity: 0.12; }
-  15%  { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 6px rgba(197,165,90,0.2); }
-  /* 15-100% - фаза "покоя" (ожидание следующего щипка) */
-  100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 6px rgba(197,165,90,0.2); }
+  0%   { transform: translateX(0) scaleX(1); opacity: 0.18; }
+  2%   { transform: translateX(4px) scaleX(1.1); opacity: 0.45; box-shadow: 0 0 10px rgba(212, 184, 106, 0.6); }
+  4%   { transform: translateX(-2.5px) scaleX(0.95); opacity: 0.32; }
+  6%   { transform: translateX(1.5px) scaleX(1.05); opacity: 0.25; }
+  8%   { transform: translateX(-0.8px) scaleX(1.02); opacity: 0.2; }
+  10%  { transform: translateX(0.3px) scaleX(1); opacity: 0.18; }
+  12%, 100% { transform: translateX(0) scaleX(1); opacity: 0.18; }
 }
 
 /* На мобильных чуть меньше яркость, чтобы не мешать чтению */
