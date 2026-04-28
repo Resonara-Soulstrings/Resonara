@@ -25,8 +25,8 @@
 
 html {
   width: 100%;
-  overflow-y: auto;      /* ← ЕДИНСТВЕННЫЙ вертикальный скролл */
-  overflow-x: hidden;    /* ← Жёсткая блокировка горизонтального */
+  overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
@@ -42,6 +42,8 @@ body {
   flex-direction: column;
   text-align: center;
   position: relative;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* === ЧАСТИЦЫ === */
@@ -67,7 +69,7 @@ body {
 }
 .string {
   position: absolute; top: 0; left: var(--pos);
-  width: 1.5px; height: 100dvh;
+  width: 1.5px; height: 100%;
   background: linear-gradient(180deg, transparent 0%, rgba(197, 165, 90, 0.12) 35%, #D4B86A 50%, rgba(197, 165, 90, 0.12) 65%, transparent 100%);
   box-shadow: 0 0 5px rgba(197, 165, 90, 0.15);
   opacity: 0.12; border-radius: 1px;
