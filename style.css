@@ -442,9 +442,9 @@ section {
 
   /* 🔹 ABOUT: Вытянут по вертикали, смещён вниз */
   .about::before {
-    top: 55%;
+    top: 70%;
     width: clamp(450px, 80vw, 480px);
-    height: clamp(900px, 120vw, 950px);
+    height: clamp(1100px, 120vw, 1150px);
     background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.25) 0%,
@@ -456,9 +456,9 @@ section {
 
   /* 🔹 MEDIA: Компактный, смещён к началу секции */
   .media::before {
-    top: 55%;
+    top: 85%;
     width: clamp(450px, 85vw, 480px);
-    height: clamp(1400px, 85vw, 1450px);
+    height: clamp(1700px, 85vw, 1750px);
     background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.25) 0%,
