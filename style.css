@@ -442,23 +442,23 @@ section {
 
   /* 🔹 ABOUT: Вытянут по вертикали, смещён вниз */
   .about::before {
-    top: 70%;
-    width: clamp(280px, 80vw, 700px);
-    height: clamp(400px, 120vw, 900px); /* выше чем ширина → овал */
+    top: 50%;
+    width: clamp(350px, 80vw, 400px);
+    height: clamp(900px, 120vw, 950px);
     background: radial-gradient(
-      circle at 50% 30%,
-      rgba(197, 165, 90, 0.22) 0%,
-      rgba(197, 165, 90, 0.08) 50%,
-      transparent 75%
+    circle at 50% 30%,
+    rgba(197, 165, 90, 0.22) 0%,
+    rgba(197, 165, 90, 0.08) 50%,
+    transparent 75%
     );
     filter: blur(22px);
   }
 
   /* 🔹 MEDIA: Компактный, смещён к началу секции */
   .media::before {
-    top: 50%;
+    top: 40%;
     width: clamp(350px, 85vw, 360px);
-    height: clamp(1350px, 85vw, 1390px);
+    height: clamp(1400px, 85vw, 1450px);
     background: radial-gradient(
       circle at 50% 30%,
       rgba(197, 165, 90, 0.20) 0%,
