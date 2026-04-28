@@ -118,7 +118,7 @@ section {
   max-width: var(--container);
   margin-inline: auto;
   position: relative;
-  /* overflow: hidden УБРАН, чтобы свечения не обрезались */
+  contain: layout style;
 }
 .section-title {
   font-family: var(--font-heading);
