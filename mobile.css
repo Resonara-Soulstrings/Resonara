@@ -1,0 +1,75 @@
+/* mobile.css – стили только для экранов ≤ 768px */
+/* (можно подключать через media="(max-width: 768px)" или просто оставить внутри) */
+
+@media (max-width: 768px) {
+  .string { opacity: 0.08; }
+  .footer { flex-direction: column; text-align: center; align-items: center; }
+  .footer-left { align-items: center; }
+  .footer-links { justify-content: center; }
+  .hero::before {
+    width: 90vmax;
+    height: 90vmax;
+    background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.35) 0%, rgba(197, 165, 90, 0.1) 60%, transparent 85%);
+    filter: blur(30px);
+  }
+  .about::before, .media::before, .community::before, .press::before {
+    width: 80vmax;
+    height: 80vmax;
+    background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.2) 0%, rgba(197, 165, 90, 0.05) 70%, transparent 90%);
+    filter: blur(25px);
+    top: 60%;
+  }
+}
+
+@media (max-width: 640px) {
+  html, body { overflow-x: clip; }
+  body { width: 100%; }
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem 0;
+    flex-direction: column;
+  }
+  .logo {
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+  }
+  .lang-toggle {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .container, section, .hero-content, .about-grid, .media-grid {
+    overflow-x: hidden;
+  }
+  .about-grid, .media-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  section {
+    padding: 3rem 1rem;
+  }
+  .footer-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 100%;
+  }
+  .footer-socials .social-link {
+    width: 36px;
+    height: 36px;
+  }
+  .footer-socials .social-link svg {
+    width: 16px;
+    height: 16px;
+  }
+  .footer-right {
+    width: 100%;
+    justify-content: center;
+  }
+  .header-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
