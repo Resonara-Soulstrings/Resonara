@@ -172,9 +172,9 @@ section {
   width: clamp(250px, 50vw, 800px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
-    circle at 50% 30%,
-    rgba(197, 165, 90, 0.08) 0%,
-    transparent 75%
+  circle at 50% 30%,
+  rgba(197, 165, 90, 0.016) 0%,
+  transparent 75%
   );
   filter: blur(20px);
 }
