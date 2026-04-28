@@ -458,7 +458,7 @@ section {
   .media::before {
     top: 65%;
     width: clamp(450px, 85vw, 480px);
-    height: clamp(1725px, 85vw, 1750px);
+    height: clamp(1715px, 85vw, 1740px);
     background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.25) 0%,
