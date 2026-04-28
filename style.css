@@ -440,20 +440,6 @@ section {
   @media (max-width: 768px) {
   .string { opacity: 0.08; }
 
-  /* 🔹 HERO: Большой, по центру, мягкий */
-  .hero::before {
-    top: 40%;
-    width: clamp(350px, 100vw, 1000px);
-    height: clamp(350px, 100vw, 1000px);
-    background: radial-gradient(
-      circle at 50% 30%,
-      rgba(197, 165, 90, 0.32) 0%,
-      rgba(197, 165, 90, 0.14) 50%,
-      transparent 80%
-    );
-    filter: blur(30px);
-  }
-
   /* 🔹 ABOUT: Вытянут по вертикали, смещён вниз */
   .about::before {
     top: 70%;
@@ -471,8 +457,8 @@ section {
   /* 🔹 MEDIA: Компактный, смещён к началу секции */
   .media::before {
     top: 50%;
-    width: clamp(250px, 75vw, 650px);
-    height: clamp(1390px, 75vw, 360px);
+    width: clamp(350px, 85vw, 360px);
+    height: clamp(1350px, 85vw, 1390px);
     background: radial-gradient(
       circle at 50% 30%,
       rgba(197, 165, 90, 0.20) 0%,
