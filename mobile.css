@@ -1,6 +1,4 @@
 /* mobile.css – стили только для экранов ≤ 768px */
-/* (можно подключать через media="(max-width: 768px)" или просто оставить внутри) */
-
 @media (max-width: 768px) {
   .string { opacity: 0.08; }
   .footer { flex-direction: column; text-align: center; align-items: center; }
