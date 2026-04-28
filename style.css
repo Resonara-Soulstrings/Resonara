@@ -165,8 +165,8 @@ section {
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,    /* центр ярче */
-    rgba(197, 165, 90, 0.12) 45%,    /* плавный переход */
+    rgba(197, 165, 90, 0.15) 0%,    /* центр ярче */
+    rgba(197, 165, 90, 0.07) 45%,    /* плавный переход */
     transparent 75%
   );
   filter: blur(20px);
