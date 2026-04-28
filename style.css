@@ -24,16 +24,16 @@
 }
 
 html {
+  width: 100%;
+  overflow-y: auto;      /* ← ЕДИНСТВЕННЫЙ вертикальный скролл */
+  overflow-x: hidden;    /* ← Жёсткая блокировка горизонтального */
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden; /* Жёсткий фикс горизонтального скролла */
-  width: 100%;
 }
 
 body {
+  width: 100%;
   min-height: 100dvh;
-  overflow-x: hidden; /* Дублируем для надёжности */
-  overflow-y: auto;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -42,7 +42,6 @@ body {
   flex-direction: column;
   text-align: center;
   position: relative;
-  width: 100%;
 }
 
 /* === ЧАСТИЦЫ === */
