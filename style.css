@@ -29,9 +29,9 @@ html {
 }
 
 body {
-  min-height: 100dvh; /* dynamic viewport height для мобильных */
-  overflow-x: hidden;
-  overflow-y: auto;
+  min-height: 100dvh;
+  overflow-x: hidden;      /* ← единственный источник фикса горизонтального скролла */
+  overflow-y: auto;        /* ← единственный вертикальный скролл */
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -65,7 +65,7 @@ body {
 }
 .string {
   position: absolute; top: 0; left: var(--pos);
-  width: 1.5px; height: 100dvh; /* dvh для корректной высоты на мобильных */
+  width: 1.5px; height: 100dvh;
   background: linear-gradient(180deg, transparent 0%, rgba(197, 165, 90, 0.12) 35%, #D4B86A 50%, rgba(197, 165, 90, 0.12) 65%, transparent 100%);
   box-shadow: 0 0 5px rgba(197, 165, 90, 0.15);
   opacity: 0.12; border-radius: 1px;
@@ -109,14 +109,16 @@ body {
 
 /* === SECTIONS & LAYOUT === */
 main { position: relative; z-index: 2; flex: 1 0 auto; }
+
 section {
   padding: 6rem 1rem;
   max-width: var(--container);
   margin-inline: auto;
   position: relative;
-  overflow: hidden; /* ← ключевое: предотвращает внутренние скроллы */
-  contain: layout style; /* оптимизация рендеринга */
+  /* overflow: hidden;  ← УБРАНО: это обрезало свечения */
+  /* contain: layout style; ← УБРАНО: тоже могло клипить */
 }
+
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3rem);
@@ -129,7 +131,7 @@ section {
   background: var(--gold); margin: 0.5rem auto 0; border-radius: 2px;
 }
 
-/* === СВЕЧЕНИЯ (единый стиль для ПК и мобильных) === */
+/* === СВЕЧЕНИЯ (восстановлены оригинальные параметры + безопасный размер) === */
 .hero::before,
 .about::before, .media::before, .community::before, .press::before {
   content: '';
@@ -137,28 +139,27 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  filter: blur(25px);
   pointer-events: none;
   z-index: 0;
-  /* Единый градиент — как на ПК */
+}
+
+.hero::before {
+  top: 40%;
+  width: 70vmax;
+  height: 70vmax;
   background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.30) 0%,
     rgba(197, 165, 90, 0.10) 50%,
     transparent 80%
   );
-}
-
-.hero::before {
-  top: 40%;
-  width: clamp(300px, 70vmax, 1200px);
-  height: clamp(300px, 70vmax, 1200px);
+  filter: blur(25px);
 }
 
 .about::before, .media::before, .community::before, .press::before {
   top: 65%;
-  width: clamp(250px, 50vmax, 900px);
-  height: clamp(250px, 50vmax, 900px);
+  width: 50vmax;
+  height: 50vmax;
   background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.08) 0%,
@@ -225,6 +226,8 @@ section {
   border-radius: var(--border-radius);
   border: 1px solid rgba(255,255,255,0.05);
   transition: var(--transition);
+  position: relative; /* чтобы контент был выше свечения */
+  z-index: 1;
 }
 .about-card:hover, .media-item:hover {
   transform: translateY(-4px);
@@ -262,6 +265,8 @@ section {
   max-width: 450px;
   margin-inline: auto;
   border: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+  z-index: 1;
 }
 .press-grid {
   display: flex;
@@ -397,7 +402,7 @@ section {
   transform: translateY(0);
 }
 
-/* === АДАПТИВ (все правила в одном месте) === */
+/* === АДАПТИВ === */
 /* Планшеты и выше */
 @media (min-width: 768px) {
   .community-wrapper { grid-template-columns: 1fr 1fr; }
@@ -413,19 +418,18 @@ section {
 
 /* Мобильные: 768px и меньше */
 @media (max-width: 768px) {
-  /* Струны чуть тусклее, но анимация та же */
   .string { opacity: 0.08; }
   
-  /* Свечения: те же градиенты, но безопасный размер */
+  /* Свечения: те же градиенты, чуть больше размытие для мобилок */
   .hero::before {
-    width: clamp(280px, 85vmax, 900px);
-    height: clamp(280px, 85vmax, 900px);
+    width: 85vmax;
+    height: 85vmax;
     top: 45%;
     filter: blur(30px);
   }
   .about::before, .media::before, .community::before, .press::before {
-    width: clamp(240px, 70vmax, 700px);
-    height: clamp(240px, 70vmax, 700px);
+    width: 70vmax;
+    height: 70vmax;
     top: 60%;
     filter: blur(22px);
   }
