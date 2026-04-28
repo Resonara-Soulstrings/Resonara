@@ -159,9 +159,11 @@ section {
 }
 
 /* === ОСТАЛЬНЫЕ СЕКЦИИ: УНИКАЛЬНЫЕ СТИЛИ === */
+
+/* === ABOUT === */
 .about::before {
   top: 65%;
-  width: clamp(250px, 50vw, 800px);
+  width: clamp(1070px, 50vw, 1080px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
@@ -171,9 +173,11 @@ section {
   );
   filter: blur(20px);
 }
+
+/* === MEDIA === */
 .media::before {
   top: 65%;
-  width: clamp(250px, 50vw, 800px);
+  width: clamp(1070px, 50vw, 1080px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
@@ -183,6 +187,8 @@ section {
   );
   filter: blur(20px);
 }
+
+/* === HERO === */
 .community::before {
   top: 65%;
   width: clamp(250px, 50vw, 800px);
@@ -195,6 +201,8 @@ section {
   );
   filter: blur(20px);
 }
+
+/* === PRESS === */
 .press::before {
     top: 65%;
   width: clamp(250px, 50vw, 800px);
