@@ -443,7 +443,7 @@ section {
   /* 🔹 ABOUT: Вытянут по вертикали, смещён вниз */
   .about::before {
     top: 55%;
-    width: clamp(350px, 80vw, 400px);
+    width: clamp(450px, 80vw, 480px);
     height: clamp(900px, 120vw, 950px);
     background: radial-gradient(
     circle at 50% 30%,
@@ -457,7 +457,7 @@ section {
   /* 🔹 MEDIA: Компактный, смещён к началу секции */
   .media::before {
     top: 55%;
-    width: clamp(350px, 85vw, 360px);
+    width: clamp(450px, 85vw, 480px);
     height: clamp(1400px, 85vw, 1450px);
     background: radial-gradient(
     circle at 50% 30%,
@@ -485,7 +485,7 @@ section {
   /* 🔹 PRESS: Маленький, аккуратный, вверху */
   .press::before {
     top: 65%;
-    width: clamp(350px, 60vw, 490px);
+    width: clamp(450px, 60vw, 480px);
     height: clamp(480px, 60vw, 500px);
     background: radial-gradient(
     circle at 50% 30%,
