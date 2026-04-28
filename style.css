@@ -151,8 +151,8 @@ section {
   height: clamp(300px, 70vw, 1100px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.35) 0%,
-    rgba(197, 165, 90, 0.15) 50%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.12) 50%,
     transparent 80%
   );
   filter: blur(15px);
@@ -429,12 +429,28 @@ section {
     width: clamp(280px, 85vw, 800px);
     height: clamp(280px, 85vw, 800px);
     top: 45%;
+    width: clamp(280px, 85vw, 800px);
+    height: clamp(280px, 85vw, 800px);
+    background: radial-gradient(
+    circle at 50% 30%,
+    rgba(197, 165, 90, 0.32) 0%,    /* ← подкручивай яркость здесь */
+    rgba(197, 165, 90, 0.14) 50%,
+    transparent 80%
+    );
     filter: blur(30px);
   }
   .about::before, .media::before, .community::before, .press::before {
     width: clamp(240px, 75vw, 700px);
     height: clamp(240px, 75vw, 700px);
     top: 60%;
+    width: clamp(240px, 75vw, 700px);
+    height: clamp(240px, 75vw, 700px);
+    background: radial-gradient(
+    circle at 50% 30%,
+    rgba(197, 165, 90, 0.24) 0%,    /* ← на мобилках часто нужно +0.05..0.08 к прозрачности */
+    rgba(197, 165, 90, 0.10) 45%,
+    transparent 75%
+    );
     filter: blur(22px);
   }
   
