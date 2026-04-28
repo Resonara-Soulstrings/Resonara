@@ -127,7 +127,7 @@ section { padding: 6rem 1rem; max-width: var(--container); margin-inline: auto; 
   transform: translate(-50%, -50%);
   width: 70vmax;
   height: 70vmax;
-  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.28) 0%, rgba(197, 165, 90, 0.08) 50%, transparent 80%);
+  background: radial-gradient(circle at 50% 30%, rgba(197, 165, 90, 0.30) 0%, rgba(197, 165, 90, 0.10) 50%, transparent 80%);
   border-radius: 50%;
   filter: blur(25px);
   pointer-events: none;
