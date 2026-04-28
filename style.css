@@ -163,7 +163,7 @@ section {
 /* === ABOUT === */
 .about::before {
   top: 65%;
-  width: clamp(1070px, 50vw, 1080px);
+  width: clamp(1100px, 50vw, 1150px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
@@ -177,7 +177,7 @@ section {
 /* === MEDIA === */
 .media::before {
   top: 65%;
-  width: clamp(1070px, 50vw, 1080px);
+  width: clamp(1100px, 50vw, 1150px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
