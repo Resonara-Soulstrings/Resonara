@@ -447,8 +447,8 @@ section {
     height: clamp(900px, 120vw, 950px);
     background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.22) 0%,
-    rgba(197, 165, 90, 0.08) 50%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.15) 45%,
     transparent 75%
     );
     filter: blur(22px);
@@ -456,12 +456,13 @@ section {
 
   /* 🔹 MEDIA: Компактный, смещён к началу секции */
   .media::before {
-    top: 60%;
+    top: 55%;
     width: clamp(350px, 85vw, 360px);
     height: clamp(1400px, 85vw, 1450px);
     background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.20) 0%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.15) 45%,
     transparent 70%
     );
     filter: blur(20px);
@@ -474,8 +475,8 @@ section {
     height: clamp(480px, 60vw, 490px);  /* уже чем ширина → горизонтальный овал */
     background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.24) 0%,
-    rgba(197, 165, 90, 0.10) 45%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.15) 45%,
     transparent 75%
     );
     filter: blur(24px);
@@ -483,12 +484,13 @@ section {
 
   /* 🔹 PRESS: Маленький, аккуратный, вверху */
   .press::before {
-    top: 40%;
+    top: 50%;
     width: clamp(350px, 60vw, 490px);
     height: clamp(490px, 60vw, 500px);
     background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.18) 0%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.10) 45%,
     transparent 70%
     );
     filter: blur(18px);
