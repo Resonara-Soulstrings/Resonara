@@ -484,7 +484,7 @@ section {
 
   /* 🔹 PRESS: Маленький, аккуратный, вверху */
   .press::before {
-    top: 50%;
+    top: 55%;
     width: clamp(350px, 60vw, 490px);
     height: clamp(490px, 60vw, 500px);
     background: radial-gradient(
