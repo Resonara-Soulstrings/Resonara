@@ -38,9 +38,6 @@
     font-size: 0.8rem;
     padding: 0.3rem 0.6rem;
   }
-  .container, section, .hero-content, .about-grid, .media-grid {
-    overflow-x: hidden;
-  }
   .about-grid, .media-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
