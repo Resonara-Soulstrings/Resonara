@@ -471,7 +471,7 @@ section {
   /* 🔹 COMMUNITY: Широкий, сплюснутый, уходит за края */
   .community::before {
     top: 60%;
-    width: clamp(350px, 110vw, 360px);  /* шире экрана */
+    width: clamp(450px, 110vw, 480px);  /* шире экрана */
     height: clamp(480px, 60vw, 500px);  /* уже чем ширина → горизонтальный овал */
     background: radial-gradient(
     circle at 50% 30%,
