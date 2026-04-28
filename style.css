@@ -426,8 +426,6 @@ section {
   
   /* Свечения: чуть больше относительно ширины экрана, но строго в пределах vw */
   .hero::before {
-    width: clamp(280px, 85vw, 800px);
-    height: clamp(280px, 85vw, 800px);
     top: 45%;
     width: clamp(280px, 85vw, 800px);
     height: clamp(280px, 85vw, 800px);
@@ -440,11 +438,9 @@ section {
     filter: blur(30px);
   }
   .about::before, .media::before, .community::before, .press::before {
-    width: clamp(240px, 75vw, 700px);
-    height: clamp(240px, 75vw, 700px);
     top: 60%;
-    width: clamp(240px, 75vw, 700px);
-    height: clamp(240px, 75vw, 700px);
+    width: clamp(280px, 85vw, 800px);
+    height: clamp(280px, 85vw, 800px);
     background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.34) 0%,    /* ← на мобилках часто нужно +0.05..0.08 к прозрачности */
