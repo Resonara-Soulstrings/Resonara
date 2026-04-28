@@ -132,7 +132,7 @@ section {
   background: var(--gold); margin: 0.5rem auto 0; border-radius: 2px;
 }
 
-/* === СВЕЧЕНИЯ (vw вместо vmax + clamp) === */
+/* === СВЕЧЕНИЯ === */
 .hero::before,
 .about::before, .media::before, .community::before, .press::before {
   content: '';
@@ -142,6 +142,16 @@ section {
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  top: 65%;
+  width: clamp(250px, 50vw, 800px);
+  height: clamp(250px, 50vw, 800px);
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(197, 165, 90, 0.15) 0%,    /* было 0.08 → стало 0.15 (+87% яркости) */
+    rgba(197, 165, 90, 0.06) 45%,    /* новая промежуточная точка для плавности */
+    transparent 75%
+  );
+  filter: blur(20px);
 }
 
 .hero::before {
