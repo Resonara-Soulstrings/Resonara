@@ -20,9 +20,7 @@
 }
 
 @media (max-width: 640px) {
-  /* Убираем всё, что вызывает лишние скроллы */
   html, body {
-    overflow-x: visible; /* или initial */
   }
   body {
     width: 100%;
@@ -51,6 +49,7 @@
   }
   section {
     padding: 3rem 1rem;
+    overflow: visible !important;
   }
   .footer-socials {
     flex-wrap: wrap;
