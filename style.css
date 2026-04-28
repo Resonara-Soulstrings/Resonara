@@ -456,7 +456,7 @@ section {
 
   /* 🔹 MEDIA: Компактный, смещён к началу секции */
   .media::before {
-    top: 65%;
+    top: 63%;
     width: clamp(450px, 85vw, 480px);
     height: clamp(1715px, 85vw, 1740px);
     background: radial-gradient(
