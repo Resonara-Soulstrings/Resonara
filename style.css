@@ -494,10 +494,6 @@ section {
 @media (min-width: 1024px) {
   .subscribe-form, .press-card { max-width: 500px; }
 }
-
-/* Мобильные: 768px и меньше */
-@media (max-width: 768px) {
-  .string { opacity: 0.08; }
   
   /* Свечения: чуть больше относительно ширины экрана, но строго в пределах vw */
   .hero::before {
