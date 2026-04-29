@@ -89,6 +89,7 @@ body {
 
 /* === ИНТЕРАКТИВНЫЕ СТРУНЫ === */
 .string {
+  pointer-events: auto;
   cursor: pointer; /* Показываем, что можно нажать */
   transition: opacity 0.2s ease, box-shadow 0.2s ease;
 }
@@ -219,7 +220,7 @@ section {
   filter: blur(20px);
 }
 
-/* === HERO === */
+/* === COMMUNITY === */
 .community::before {
   top: 65%;
   width: clamp(250px, 50vw, 800px);
