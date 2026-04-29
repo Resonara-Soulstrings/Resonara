@@ -1,13 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // ============================================
-  // 1. ГОД В ФУТЕРЕ
-  // ============================================
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // 1. Год в футере
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ============================================
-  // 2. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ
-  // ============================================
+  // 2. Переключение языков
   const translations = {
     ru: {
       heroTitle: "Балансируй эмоции. Меняй мир.",
@@ -70,235 +65,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setLanguage(lang) {
     currentLang = lang;
-    if (document.documentElement) document.documentElement.lang = lang;
+    document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (translations[lang] && translations[lang][key]) {
-        el.textContent = translations[lang][key];
-      }
+      if (translations[lang][key]) el.textContent = translations[lang][key];
     });
-    if (langBtn) langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
-    try { localStorage.setItem('lang', lang); } catch(e) {}
+    langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
+    localStorage.setItem('lang', lang);
   }
 
-  if (langBtn) {
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang && translations[savedLang]) setLanguage(savedLang);
-    langBtn.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
-  }
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang && translations[savedLang]) setLanguage(savedLang);
 
-  // ============================================
-  // 3. АНИМАЦИИ ПРИ СКРОЛЛЕ
-  // ============================================
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid').forEach(el => {
-      el.classList.add('fade-up');
-      observer.observe(el);
+  langBtn.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
+
+  // 3. Анимации при скролле
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }
+  }, { threshold: 0.1 });
 
-  // ============================================
-  // 4. ИНДИКАТОР КАРМЫ
-  // ============================================
+  document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid').forEach(el => {
+    el.classList.add('fade-up');
+    observer.observe(el);
+  });
+
+  // 4. Индикатор кармы
   const karmaFill = document.querySelector('.karma-fill');
-  if (karmaFill) {
-    window.addEventListener('scroll', () => {
-      const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      const width = Math.min(Math.max(scrollPercent * 100, 0), 100);
-      karmaFill.style.width = `${width}%`;
-      const hue = Math.round(scrollPercent * 180);
-      karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
-    }, { passive: true });
-  }
+  window.addEventListener('scroll', () => {
+    const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    const width = Math.min(Math.max(scrollPercent * 100, 0), 100);
+    karmaFill.style.width = `${width}%`;
+    const hue = Math.round(scrollPercent * 180);
+    karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
+  });
 
-  // ============================================
-  // 5. ГЕНЕРАТОР ЧАСТИЦ
-  // ============================================
+  // 5. Генератор частиц
   const particleContainer = document.getElementById('bg-particles');
-  if (particleContainer) {
-    for (let i = 0; i < 45; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      const size = Math.random() * 4 + 2;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.animationDuration = `${Math.random() * 12 + 10}s`;
-      p.style.animationDelay = `${Math.random() * 15}s`;
-      particleContainer.appendChild(p);
-    }
+  const particleCount = 45;
+
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    const size = Math.random() * 4 + 2;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${Math.random() * 100}%`;
+    p.style.animationDuration = `${Math.random() * 12 + 10}s`;
+    p.style.animationDelay = `${Math.random() * 15}s`;
+    particleContainer.appendChild(p);
   }
 
-  // ============================================
-  // 6. ФОРМА ПОДПИСКИ
-  // ============================================
+  // 6. Форма подписки
   const form = document.getElementById('newsletter-form');
-  if (form) {
-    const emailInput = document.getElementById('emailInput');
-    const successMsg = document.querySelector('.form-success');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = emailInput?.value.trim();
-      if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
-      const btn = form.querySelector('button');
-      if (btn) btn.textContent = '...';
-      setTimeout(() => {
-        form.style.display = 'none';
-        if (successMsg) successMsg.classList.remove('hidden');
-      }, 800);
-    });
-  }
+  const emailInput = document.getElementById('emailInput');
+  const successMsg = document.querySelector('.form-success');
 
-  // ============================================
-  // 🔊 7. ИНТЕРАКТИВНЫЕ СТРУНЫ (АУДИО + АНИМАЦИЯ)
-  // ============================================
-  const StringSound = (() => {
-    let audioCtx = null;
-    let masterGain = null;
-    let isReady = false;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
 
-    // Создаём и разблокируем аудио ТОЛЬКО после жеста пользователя
-    async function ensureAudio() {
-      if (isReady) return true;
-      try {
-        if (!audioCtx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (!AudioContext) throw new Error('Web Audio API not supported');
-          audioCtx = new AudioContext();
-          masterGain = audioCtx.createGain();
-          masterGain.gain.value = 0.15;
-          masterGain.connect(audioCtx.destination);
-        }
-        if (audioCtx.state === 'suspended') {
-          await audioCtx.resume();
-        }
-        isReady = true;
-        console.log('🔊 Audio ready');
-        return true;
-      } catch (e) {
-        console.error('🔊 Audio error:', e);
-        return false;
-      }
-    }
-
-    // Генерация звука струны
-    function playTone(frequency = 220, duration = 0.8) {
-      if (!isReady || !audioCtx) return;
-      try {
-        const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(frequency * (0.998 + Math.random() * 0.004), now);
-        
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(2000, now);
-        filter.frequency.exponentialRampToValueAtTime(400, now + duration);
-        
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.6, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
-        
-        const lfo = audioCtx.createOscillator();
-        lfo.type = 'sine';
-        lfo.frequency.value = 6;
-        const lfoGain = audioCtx.createGain();
-        lfoGain.gain.value = 3;
-        lfo.connect(lfoGain);
-        lfoGain.connect(osc.frequency);
-        
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(masterGain);
-        
-        osc.start(now);
-        lfo.start(now);
-        osc.stop(now + duration);
-        lfo.stop(now + duration);
-      } catch (e) {
-        console.error('🔊 Play error:', e);
-      }
-    }
-
-    // Визуальный "щипок" струны
-    function pluckVisual(string) {
-      // Останавливаем бесконечную анимацию, если она есть
-      string.style.animationPlayState = 'paused';
-      string.classList.remove('plucked');
-      void string.offsetWidth; // рефлоу
-      string.classList.add('plucked');
-      // Возвращаем анимацию в паузу после завершения
-      setTimeout(() => {
-        string.style.animationPlayState = 'paused';
-      }, 400);
-    }
-
-    // Привязка событий
-    function bindStrings() {
-      const strings = document.querySelectorAll('.string[role="button"]');
-      if (!strings.length) {
-        console.warn('🔊 No interactive strings found');
-        return;
-      }
-
-      // 🔧 ОТКЛЮЧАЕМ бесконечную CSS-анимацию для всех струн
-      strings.forEach(s => {
-        s.style.animationPlayState = 'paused';
-        s.style.pointerEvents = 'auto'; // на всякий случай
-      });
-
-      strings.forEach(string => {
-        const pitch = parseFloat(string.style.getPropertyValue('--pitch')) || 220;
-        
-        const onInteract = async (e) => {
-          e?.preventDefault?.();
-          const ok = await ensureAudio();
-          if (!ok) return;
-          pluckVisual(string);
-          playTone(pitch);
-        };
-        
-        string.addEventListener('click', onInteract);
-        string.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onInteract(e);
-          }
-        });
-        string.addEventListener('touchstart', onInteract, { passive: true });
-        
-        if (!('ontouchstart' in window)) {
-          string.title = 'Нажми для звука';
-        }
-      });
-    }
-
-    // Глобальная разблокировка при первом жесте
-    function setupUnlock() {
-      const unlock = async () => {
-        await ensureAudio();
-        ['click','touchstart','keydown','scroll'].forEach(evt => 
-          document.removeEventListener(evt, unlock)
-        );
-      };
-      ['click','touchstart','keydown','scroll'].forEach(evt => 
-        document.addEventListener(evt, unlock, { passive: true })
-      );
-    }
-
-    return {
-      init: () => { setupUnlock(); bindStrings(); },
-      play: playTone,
-      setVolume: (v) => { if (masterGain) masterGain.gain.value = Math.max(0, Math.min(1, v)); }
-    };
-  })();
-
-  StringSound.init();
-  window.StringSound = StringSound; // для отладки в консоли
+    form.querySelector('button').textContent = '...';
+    setTimeout(() => {
+      form.style.display = 'none';
+      successMsg.classList.remove('hidden');
+    }, 800);
+  });
 });
