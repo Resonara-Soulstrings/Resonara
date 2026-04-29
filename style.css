@@ -87,6 +87,37 @@ body {
   14%, 100% { transform: translateX(0) scaleX(1); opacity: 0.12; box-shadow: 0 0 5px rgba(197, 165, 90, 0.15); }
 }
 
+/* === ИНТЕРАКТИВНЫЕ СТРУНЫ === */
+.string {
+  cursor: pointer; /* Показываем, что можно нажать */
+  transition: opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Наведение */
+.string:hover,
+.string:focus {
+  opacity: 0.6 !important;
+  box-shadow: 0 0 15px rgba(212, 184, 106, 0.8), 0 0 30px rgba(197, 165, 90, 0.4) !important;
+  outline: none;
+}
+
+/* Анимация "щипка" */
+.string.plucked {
+  animation: stringPluck 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Мобилки: убираем ховер, оставляем только актив */
+@media (hover: none) {
+  .string:hover {
+    opacity: 0.12 !important;
+    box-shadow: 0 0 5px rgba(197, 165, 90, 0.15) !important;
+  }
+  .string:active {
+    opacity: 0.6 !important;
+    box-shadow: 0 0 15px rgba(212, 184, 106, 0.8) !important;
+  }
+}
+
 /* === HEADER === */
 .header {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
