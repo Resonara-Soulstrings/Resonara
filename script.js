@@ -83,12 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (langBtn) {
     const savedLang = localStorage.getItem('lang');
-    if (savedLang && translations[savedLang]) {
-      setLanguage(savedLang);
-    }
-    langBtn.addEventListener('click', () => {
-      setLanguage(currentLang === 'ru' ? 'en' : 'ru');
-    });
+    if (savedLang && translations[savedLang]) setLanguage(savedLang);
+    langBtn.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
   }
 
   // ============================================
@@ -100,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid').forEach(el => {
       el.classList.add('fade-up');
       observer.observe(el);
@@ -126,8 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================
   const particleContainer = document.getElementById('bg-particles');
   if (particleContainer) {
-    const particleCount = 45;
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < 45; i++) {
       const p = document.createElement('div');
       p.classList.add('particle');
       const size = Math.random() * 4 + 2;
@@ -147,15 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (form) {
     const emailInput = document.getElementById('emailInput');
     const successMsg = document.querySelector('.form-success');
-    
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = emailInput?.value.trim();
       if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
-
       const btn = form.querySelector('button');
       if (btn) btn.textContent = '...';
-      
       setTimeout(() => {
         form.style.display = 'none';
         if (successMsg) successMsg.classList.remove('hidden');
@@ -164,53 +155,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================
-  // 🔊 7. ИНТЕРАКТИВНЫЕ СТРУНЫ
+  // 🔊 7. ИНТЕРАКТИВНЫЕ СТРУНЫ (АУДИО + АНИМАЦИЯ)
   // ============================================
   const StringSound = (() => {
     let audioCtx = null;
     let masterGain = null;
-    let isUnlocked = false;
-    let isSupported = true;
+    let isReady = false;
 
-    function checkSupport() {
-      if (!window.AudioContext && !window.webkitAudioContext) {
-        console.warn('🔊 Web Audio API не поддерживается');
-        isSupported = false;
-        return false;
-      }
-      return true;
-    }
-
-    function initAudio() {
-      if (audioCtx || !isSupported) return;
+    // Создаём и разблокируем аудио ТОЛЬКО после жеста пользователя
+    async function ensureAudio() {
+      if (isReady) return true;
       try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.15;
-        masterGain.connect(audioCtx.destination);
-        console.log('🔊 AudioContext готов');
-      } catch (e) {
-        console.error('🔊 Ошибка аудио:', e);
-        isSupported = false;
-      }
-    }
-
-    async function unlockAudio() {
-      if (!isSupported || !audioCtx) return;
-      try {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) throw new Error('Web Audio API not supported');
+          audioCtx = new AudioContext();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = 0.15;
+          masterGain.connect(audioCtx.destination);
+        }
         if (audioCtx.state === 'suspended') {
           await audioCtx.resume();
-          console.log('🔊 Аудио разблокировано');
         }
-        isUnlocked = true;
+        isReady = true;
+        console.log('🔊 Audio ready');
+        return true;
       } catch (e) {
-        console.error('🔊 Ошибка разблокировки:', e);
+        console.error('🔊 Audio error:', e);
+        return false;
       }
     }
 
-    function playString(frequency = 220, duration = 0.8) {
-      if (!isSupported || !audioCtx || !isUnlocked) return;
+    // Генерация звука струны
+    function playTone(frequency = 220, duration = 0.8) {
+      if (!isReady || !audioCtx) return;
       try {
         const now = audioCtx.currentTime;
         const osc = audioCtx.createOscillator();
@@ -244,37 +222,53 @@ document.addEventListener('DOMContentLoaded', () => {
         osc.stop(now + duration);
         lfo.stop(now + duration);
       } catch (e) {
-        console.error('🔊 Ошибка звука:', e);
+        console.error('🔊 Play error:', e);
       }
     }
 
+    // Визуальный "щипок" струны
+    function pluckVisual(string) {
+      // Останавливаем бесконечную анимацию, если она есть
+      string.style.animationPlayState = 'paused';
+      string.classList.remove('plucked');
+      void string.offsetWidth; // рефлоу
+      string.classList.add('plucked');
+      // Возвращаем анимацию в паузу после завершения
+      setTimeout(() => {
+        string.style.animationPlayState = 'paused';
+      }, 400);
+    }
+
+    // Привязка событий
     function bindStrings() {
-      if (!isSupported) return;
       const strings = document.querySelectorAll('.string[role="button"]');
-      if (!strings.length) return;
+      if (!strings.length) {
+        console.warn('🔊 No interactive strings found');
+        return;
+      }
+
+      // 🔧 ОТКЛЮЧАЕМ бесконечную CSS-анимацию для всех струн
+      strings.forEach(s => {
+        s.style.animationPlayState = 'paused';
+        s.style.pointerEvents = 'auto'; // на всякий случай
+      });
 
       strings.forEach(string => {
         const pitch = parseFloat(string.style.getPropertyValue('--pitch')) || 220;
         
-        const pluckVisual = () => {
-          string.classList.remove('plucked');
-          void string.offsetWidth;
-          string.classList.add('plucked');
-        };
-        
-        const onInteract = (e) => {
+        const onInteract = async (e) => {
           e?.preventDefault?.();
-          initAudio();
-          unlockAudio();
-          pluckVisual();
-          playString(pitch);
+          const ok = await ensureAudio();
+          if (!ok) return;
+          pluckVisual(string);
+          playTone(pitch);
         };
         
         string.addEventListener('click', onInteract);
         string.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            onInteract();
+            onInteract(e);
           }
         });
         string.addEventListener('touchstart', onInteract, { passive: true });
@@ -285,25 +279,26 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    function setupGlobalUnlock() {
-      const handler = () => {
-        initAudio();
-        unlockAudio();
-        ['click','touchstart','keydown'].forEach(evt => 
-          document.removeEventListener(evt, handler)
+    // Глобальная разблокировка при первом жесте
+    function setupUnlock() {
+      const unlock = async () => {
+        await ensureAudio();
+        ['click','touchstart','keydown','scroll'].forEach(evt => 
+          document.removeEventListener(evt, unlock)
         );
       };
-      ['click','touchstart','keydown'].forEach(evt => 
-        document.addEventListener(evt, handler, { passive: true })
+      ['click','touchstart','keydown','scroll'].forEach(evt => 
+        document.addEventListener(evt, unlock, { passive: true })
       );
     }
 
     return {
-      init: () => { checkSupport(); setupGlobalUnlock(); bindStrings(); },
-      play: playString,
+      init: () => { setupUnlock(); bindStrings(); },
+      play: playTone,
       setVolume: (v) => { if (masterGain) masterGain.gain.value = Math.max(0, Math.min(1, v)); }
     };
-  })(); // ← Закрывает IIFE
+  })();
 
-  StringSound.init(); // ← Запуск
-}); // ← Закрывает DOMContentLoaded
+  StringSound.init();
+  window.StringSound = StringSound; // для отладки в консоли
+});
