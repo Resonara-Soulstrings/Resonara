@@ -333,3 +333,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Для отладки в консоли: введи StringSound.debug()
   window.StringSound = StringSound;
+}
