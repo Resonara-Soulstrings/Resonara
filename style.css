@@ -89,8 +89,11 @@ body {
 
 /* === ИНТЕРАКТИВНЫЕ СТРУНЫ === */
 .string {
-  pointer-events: auto;
-  cursor: pointer; /* Показываем, что можно нажать */
+  animation-play-state: paused; /* ← НОВОЕ: анимация стоит на паузе */
+  
+/* Интерактив */
+  pointer-events: auto; /* ← КРИТИЧНО: разрешаем клики */
+  cursor: pointer;
   transition: opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -102,9 +105,18 @@ body {
   outline: none;
 }
 
+/* При наведении — лёгкая подсветка (опционально) */
+.string:hover,
+.string:focus {
+  opacity: 0.4 !important;
+  box-shadow: 0 0 10px rgba(212, 184, 106, 0.6) !important;
+  outline: none;
+}
+
 /* Анимация "щипка" */
 .string.plucked {
-  animation: stringPluck 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation: stringPluck 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+  animation-play-state: running !important;
 }
 
 /* Мобилки: убираем ховер, оставляем только актив */
