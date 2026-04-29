@@ -146,100 +146,135 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================
-  // 🔊 7. ИНТЕРАКТИВНЫЕ СТРУНЫ: ЗВУК + ВИЗУАЛ
+  // 🔊 7. ИНТЕРАКТИВНЫЕ СТРУНЫ: ЗВУК + ВИЗУАЛ + ОТЛАДКА
   // ============================================
   const StringSound = (() => {
     let audioCtx = null;
     let masterGain = null;
     let isUnlocked = false;
+    let isSupported = true;
 
-    // Инициализация аудио (только после первого взаимодействия)
+    // Проверка поддержки Web Audio API
+    function checkSupport() {
+      if (!window.AudioContext && !window.webkitAudioContext) {
+        console.warn('🔊 Web Audio API не поддерживается в этом браузере');
+        isSupported = false;
+        return false;
+      }
+      return true;
+    }
+
+    // Инициализация аудио
     function initAudio() {
-      if (audioCtx) return;
+      if (audioCtx || !isSupported) return;
       try {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
         masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.15; // Общая громкость (0.0 - 1.0)
+        masterGain.gain.value = 0.15;
         masterGain.connect(audioCtx.destination);
+        console.log('🔊 AudioContext инициализирован, состояние:', audioCtx.state);
+      } catch (e) {
+        console.error('🔊 Ошибка инициализации аудио:', e);
+        isSupported = false;
+      }
+    }
+
+    // Разблокировка аудио (браузеры требуют взаимодействия)
+    async function unlockAudio() {
+      if (!isSupported || !audioCtx) return;
+      try {
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume();
+          console.log('🔊 AudioContext разблокирован');
+        }
         isUnlocked = true;
       } catch (e) {
-        console.warn('Web Audio API не поддерживается:', e);
+        console.error('🔊 Ошибка разблокировки аудио:', e);
       }
     }
 
-    // Разблокировка аудио при первом клике/тапе где угодно
-    function unlockAudio() {
-      if (!isUnlocked && audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-        isUnlocked = true;
-      }
-    }
-
-    // Генерация звука струны (синтез через осциллятор + фильтр)
+    // Генерация звука струны
     function playString(frequency = 220, duration = 0.8) {
-      if (!audioCtx || !isUnlocked) return;
+      if (!isSupported || !audioCtx || !isUnlocked) {
+        console.warn('🔊 Нельзя воспроизвести звук:', { isSupported, hasCtx: !!audioCtx, isUnlocked });
+        return;
+      }
 
-      const now = audioCtx.currentTime;
-      
-      // Основной осциллятор (треугольная волна = мягкий "струнный" тембр)
-      const osc = audioCtx.createOscillator();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(frequency, now);
-      
-      // Фильтр для "теплоты"
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(2000, now);
-      filter.frequency.exponentialRampToValueAtTime(400, now + duration);
-      
-      // Огибающая громкости (ADSR-подобная)
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(0.6, now + 0.02); // Attack
-      gain.gain.exponentialRampToValueAtTime(0.01, now + duration); // Decay/Release
-      
-      // Лёгкий вибрато для живости
-      const lfo = audioCtx.createOscillator();
-      lfo.type = 'sine';
-      lfo.frequency.value = 6;
-      const lfoGain = audioCtx.createGain();
-      lfoGain.gain.value = 3;
-      lfo.connect(lfoGain);
-      lfoGain.connect(osc.frequency);
-      
-      // Сборка цепи: osc → filter → gain → master → destination
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(masterGain);
-      
-      // Запуск
-      osc.start(now);
-      lfo.start(now);
-      osc.stop(now + duration);
-      lfo.stop(now + duration);
-      
-      // Лёгкий случайный детюн для "человечности"
-      osc.frequency.setValueAtTime(frequency * (0.998 + Math.random() * 0.004), now);
+      try {
+        const now = audioCtx.currentTime;
+        
+        // Осциллятор (треугольная волна = мягкий струнный тембр)
+        const osc = audioCtx.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(frequency * (0.998 + Math.random() * 0.004), now);
+        
+        // Фильтр для "теплоты"
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2000, now);
+        filter.frequency.exponentialRampToValueAtTime(400, now + duration);
+        
+        // Огибающая громкости
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.6, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+        
+        // Лёгкое вибрато
+        const lfo = audioCtx.createOscillator();
+        lfo.type = 'sine';
+        lfo.frequency.value = 6;
+        const lfoGain = audioCtx.createGain();
+        lfoGain.gain.value = 3;
+        lfo.connect(lfoGain);
+        lfoGain.connect(osc.frequency);
+        
+        // Сборка цепи
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterGain);
+        
+        // Запуск
+        osc.start(now);
+        lfo.start(now);
+        osc.stop(now + duration);
+        lfo.stop(now + duration);
+        
+        console.log(`🎵 Звук: ${frequency} Гц, длительность: ${duration}с`);
+      } catch (e) {
+        console.error('🔊 Ошибка воспроизведения:', e);
+      }
     }
 
     // Привязка событий к струнам
     function bindStrings() {
+      if (!isSupported) {
+        console.warn('🔊 Звук отключён: Web Audio API не поддерживается');
+        return;
+      }
+
       const strings = document.querySelectorAll('.string[role="button"]');
+      console.log(`🔊 Найдено струн: ${strings.length}`);
       
-      strings.forEach(string => {
-        // Получаем частоту из CSS-переменной (по умолчанию 220 Гц)
+      if (strings.length === 0) {
+        console.warn('🔊 Не найдено элементов .string[role="button"]');
+        return;
+      }
+
+      strings.forEach((string, index) => {
         const pitch = parseFloat(string.style.getPropertyValue('--pitch')) || 220;
+        console.log(`🔗 Струна #${index + 1}: pitch = ${pitch} Гц`);
         
-        // Визуальный эффект "щипка"
         const pluckVisual = () => {
           string.classList.remove('plucked');
-          void string.offsetWidth; // Рефлоу для перезапуска анимации
+          void string.offsetWidth;
           string.classList.add('plucked');
         };
         
-        // Обработчик для мыши
         const onInteract = (e) => {
           e?.preventDefault?.();
+          console.log('👆 Взаимодействие со струной');
           initAudio();
           unlockAudio();
           pluckVisual();
@@ -248,32 +283,53 @@ document.addEventListener('DOMContentLoaded', () => {
         
         string.addEventListener('click', onInteract);
         string.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') onInteract(e);
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onInteract(e);
+          }
         });
-        
-        // Мобилки: поддержка touch
         string.addEventListener('touchstart', onInteract, { passive: true });
         
-        // Подсказка при наведении (только десктоп)
         if (!('ontouchstart' in window)) {
           string.title = 'Нажми, чтобы извлечь звук';
         }
       });
     }
 
-    // Глобальная разблокировка аудио (браузеры требуют взаимодействия)
-    ['click', 'touchstart', 'keydown'].forEach(evt => {
-      document.addEventListener(evt, unlockAudio, { once: true, passive: true });
-    });
+    // Глобальная разблокировка при первом взаимодействии
+    function setupGlobalUnlock() {
+      const unlockHandler = () => {
+        initAudio();
+        unlockAudio();
+        // Удаляем обработчики после первого срабатывания
+        ['click', 'touchstart', 'keydown'].forEach(evt => {
+          document.removeEventListener(evt, unlockHandler);
+        });
+      };
+      ['click', 'touchstart', 'keydown'].forEach(evt => {
+        document.addEventListener(evt, unlockHandler, { passive: true });
+      });
+    }
 
     // Публичный интерфейс
     return {
-      init: bindStrings,
+      init: () => {
+        checkSupport();
+        setupGlobalUnlock();
+        bindStrings();
+      },
       play: playString,
-      setVolume: (vol) => { if (masterGain) masterGain.gain.value = Math.max(0, Math.min(1, vol)); }
+      setVolume: (vol) => {
+        if (masterGain && isSupported) {
+          masterGain.gain.value = Math.max(0, Math.min(1, vol));
+        }
+      },
+      debug: () => ({ isSupported, hasCtx: !!audioCtx, isUnlocked, state: audioCtx?.state })
     };
   })();
 
-  // Запускаем интерактивные струны
+  // Запуск
   StringSound.init();
-});
+  
+  // Для отладки в консоли: введи StringSound.debug()
+  window.StringSound = StringSound;
