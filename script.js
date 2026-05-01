@@ -1,21 +1,8 @@
-/**
- * Resonara: Soulstrings — Official Hub
- * Исправленный script.js
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-  // ========== 1. ГОД В ФУТЕРЕ ==========
-  const yearEl = document.getElementById('year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  // 1. Год в футере
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ========== 2. КОНСТАНТЫ И СОСТОЯНИЕ ==========
-  const STORAGE_KEYS = {
-    CONSENT: 'resonara_consent',
-    LANG: 'resonara_lang'
-  };
-
+  // 2. Переключение языков
   const translations = {
     ru: {
       heroTitle: "Балансируй эмоции. Меняй мир.",
@@ -76,248 +63,74 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentLang = 'ru';
   const langBtn = document.getElementById('langBtn');
 
-  // ========== 3. ЛОГИКА ЯЗЫКА ==========
-  function setLanguage(lang, savePreference = true) {
+  function setLanguage(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
-    
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (translations[lang]?.[key]) {
-        el.textContent = translations[lang][key];
-      }
+      if (translations[lang][key]) el.textContent = translations[lang][key];
     });
-    
-    if (langBtn) {
-      langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
-    }
-    
-    // Сохраняем язык ТОЛЬКО если пользователь дал согласие
-    if (savePreference && getConsent() === 'accepted') {
-      localStorage.setItem(STORAGE_KEYS.LANG, lang);
-    }
+    langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
+    localStorage.setItem('lang', lang);
   }
 
-  function initLanguage() {
-    const consent = getConsent();
-    if (consent === 'accepted') {
-      const saved = localStorage.getItem(STORAGE_KEYS.LANG);
-      if (saved && translations[saved]) {
-        setLanguage(saved, false);
-        return;
-      }
-    }
-    setLanguage('ru', false);
-  }
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang && translations[savedLang]) setLanguage(savedLang);
 
-  // ========== 4. COOKIE BANNER LOGIC (ИСПРАВЛЕНО) ==========
-  function getConsent() {
-    return localStorage.getItem(STORAGE_KEYS.CONSENT);
-  }
+  langBtn.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
 
-  function showCookieBanner() {
-    const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО: был 'cookie-consent'
-    if (!banner || getConsent()) return;
-    
-    banner.hidden = false;
-    requestAnimationFrame(() => {
-      banner.classList.add('is-visible');
-    });
-  }
-
-  function hideCookieBanner() {
-    const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО
-    if (!banner) return;
-    
-    banner.classList.remove('is-visible');
-    setTimeout(() => {
-      banner.hidden = true;
-    }, 400);
-  }
-
-  function initCookieConsent() {
-    const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО
-    const acceptBtn = document.getElementById('cookie-accept');
-    const declineBtn = document.getElementById('cookie-decline');
-    
-    if (!banner) return;
-
-    // Показываем с задержкой, если нет сохранённого выбора
-    setTimeout(() => {
-      if (getConsent() === null) {
-        showCookieBanner();
-      }
-    }, 1500);
-
-    // Кнопка "Принять"
-    if (acceptBtn) {
-      acceptBtn.addEventListener('click', () => {
-        localStorage.setItem(STORAGE_KEYS.CONSENT, 'accepted');
-        localStorage.setItem(STORAGE_KEYS.LANG, currentLang);
-        hideCookieBanner();
-      });
-    }
-
-    // Кнопка "Отклонить"
-    if (declineBtn) {
-      declineBtn.addEventListener('click', () => {
-        localStorage.setItem(STORAGE_KEYS.CONSENT, 'declined');
-        localStorage.removeItem(STORAGE_KEYS.LANG);
-        hideCookieBanner();
-      });
-    }
-
-    // Закрытие по Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && banner.classList.contains('is-visible')) {
-        localStorage.setItem(STORAGE_KEYS.CONSENT, 'declined');
-        hideCookieBanner();
-      }
-    });
-  }
-
-  // ========== 5. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (КНОПКА В ШАПКЕ) ==========
-  if (langBtn) {
-    langBtn.addEventListener('click', () => {
-      // Если согласия нет → показываем баннер
-      if (getConsent() !== 'accepted') {
-        showCookieBanner();
-        const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО
-        if (banner) {
-          banner.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }
-        return;
-      }
-      
-      // Если согласие есть → переключаем язык
-      const newLang = currentLang === 'ru' ? 'en' : 'ru';
-      setLanguage(newLang, true);
-    });
-  }
-
-  // ========== 6. АНИМАЦИИ ПРИ СКРОЛЛЕ ==========
+  // 3. Анимации при скролле
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid, .policy-card').forEach(el => {
+  document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid').forEach(el => {
     el.classList.add('fade-up');
     observer.observe(el);
   });
 
-  // ========== 7. ИНДИКАТОР КАРМЫ ==========
+  // 4. Индикатор кармы
   const karmaFill = document.querySelector('.karma-fill');
-  if (karmaFill) {
-    window.addEventListener('scroll', () => {
-      const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      const width = Math.min(Math.max(scrollPercent * 100, 0), 100);
-      karmaFill.style.width = `${width}%`;
-      const hue = Math.round(200 - scrollPercent * 180);
-      karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
-    }, { passive: true });
-  }
+  window.addEventListener('scroll', () => {
+    const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    const width = Math.min(Math.max(scrollPercent * 100, 0), 100);
+    karmaFill.style.width = `${width}%`;
+    const hue = Math.round(scrollPercent * 180);
+    karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
+  });
 
-  // ========== 8. ГЕНЕРАТОР ЧАСТИЦ ==========
+  // 5. Генератор частиц
   const particleContainer = document.getElementById('bg-particles');
-  if (particleContainer) {
-    const particleCount = window.innerWidth < 768 ? 25 : 45;
-    for (let i = 0; i < particleCount; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      const size = Math.random() * 4 + 2;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.top = `${Math.random() * 100}%`;
-      p.style.animationDuration = `${Math.random() * 12 + 10}s`;
-      p.style.animationDelay = `${Math.random() * 15}s`;
-      p.style.opacity = Math.random() * 0.5 + 0.3;
-      particleContainer.appendChild(p);
-    }
+  const particleCount = 45;
+
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    const size = Math.random() * 4 + 2;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${Math.random() * 100}%`;
+    p.style.animationDuration = `${Math.random() * 12 + 10}s`;
+    p.style.animationDelay = `${Math.random() * 15}s`;
+    particleContainer.appendChild(p);
   }
 
-  // ========== 9. ИНТЕРАКТИВНЫЕ СТРУНЫ ==========
-  document.querySelectorAll('.string').forEach(str => {
-    const playPluck = (e) => {
-      if (navigator.vibrate) navigator.vibrate(10);
-      
-      str.classList.remove('plucked');
-      void str.offsetWidth; // reflow для перезапуска анимации
-      str.classList.add('plucked');
-      
-      if (e?.clientX) {
-        createSparkle(e.clientX, e.clientY);
-      }
-    };
-    
-    str.addEventListener('click', playPluck);
-    str.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        playPluck();
-      }
-    });
-  });
-
-  function createSparkle(x, y) {
-    const sparkle = document.createElement('div');
-    sparkle.style.cssText = `
-      position: fixed; left: ${x}px; top: ${y}px;
-      width: 6px; height: 6px; background: var(--gold);
-      border-radius: 50%; pointer-events: none; z-index: 9999;
-      box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(197,165,90,0.6);
-      animation: sparkleFade 0.6s ease-out forwards;
-    `;
-    document.body.appendChild(sparkle);
-    setTimeout(() => sparkle.remove(), 600);
-  }
-
-  if (!document.getElementById('sparkle-keyframes')) {
-    const style = document.createElement('style');
-    style.id = 'sparkle-keyframes';
-    style.textContent = `@keyframes sparkleFade { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0); opacity: 0; } }`;
-    document.head.appendChild(style);
-  }
-
-  // ========== 10. ФОРМА ПОДПИСКИ (ДЕМО) ==========
+  // 6. Форма подписки
   const form = document.getElementById('newsletter-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const emailInput = document.getElementById('emailInput');
-      const successMsg = document.querySelector('.form-success');
-      
-      if (emailInput?.value && emailInput.checkValidity()) {
-        form.reset();
-        if (successMsg) {
-          successMsg.classList.remove('hidden');
-          setTimeout(() => successMsg.classList.add('hidden'), 4000);
-        }
-      } else if (emailInput) {
-        emailInput.reportValidity();
-      }
-    });
-  }
+  const emailInput = document.getElementById('emailInput');
+  const successMsg = document.querySelector('.form-success');
 
-  // ========== 11. ПЛАВНЫЙ СКРОЛЛ ДЛЯ ЯКОРЕЙ ==========
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href.length > 1) {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-    });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
+
+    form.querySelector('button').textContent = '...';
+    setTimeout(() => {
+      form.style.display = 'none';
+      successMsg.classList.remove('hidden');
+    }, 800);
   });
-
-  // ========== ЗАПУСК ==========
-  initLanguage();
-  initCookieConsent();
 });
