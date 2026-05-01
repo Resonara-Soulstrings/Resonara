@@ -140,24 +140,27 @@
 
   <script src="script.js"></script>
   
-<!-- Cookie banner -->
-<div id="cookie-consent" class="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-title" style="display: none;">
-  <div class="cookie-content">
-    <div class="cookie-header">
-      <span class="cookie-icon">✦</span>
-      <h3 id="cookie-title" class="cookie-title">Выбор пути</h3>
-    </div>
-    <p class="cookie-text">
-      Мы используем локальное хранилище для сохранения языка. Без трекеров и рекламы. 
-      <a href="privacy.html">Подробнее</a>
-    </p>
-    <div class="cookie-buttons">
-      <button id="cookie-decline" class="cookie-btn cookie-btn-decline" aria-label="Отклонить">
-        ◦ Отклонить
-      </button>
-      <button id="cookie-accept" class="cookie-btn cookie-btn-accept" aria-label="Принять">
-        ✦ Принять
-      </button>
+<!-- Cookie Banner -->
+<div id="cookie-consent" class="cookie-banner" style="display: none;">
+  <div class="cookie-wrapper">
+    <div class="cookie-content">
+      <div class="cookie-header">
+        <span class="cookie-icon">✦</span>
+        <h3 class="cookie-title">Выбор пути</h3>
+      </div>
+      <p class="cookie-text">
+        Мы используем локальное хранилище для сохранения языка. 
+        Без трекеров и рекламы. 
+        <a href="privacy.html">Подробнее →</a>
+      </p>
+      <div class="cookie-buttons">
+        <button id="cookie-decline" class="cookie-btn cookie-btn-secondary">
+          ◦ Путь Пири
+        </button>
+        <button id="cookie-accept" class="cookie-btn cookie-btn-primary">
+          ✦ Путь Мири
+        </button>
+      </div>
     </div>
   </div>
 </div>
