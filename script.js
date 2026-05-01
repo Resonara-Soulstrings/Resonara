@@ -133,45 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
       successMsg.classList.remove('hidden');
     }, 800);
   });
-  
-
-  // Интерактивные струны
-  document.querySelectorAll('.string').forEach(string => {
-    string.addEventListener('click', () => {
-      string.classList.remove('plucked');
-      void string.offsetWidth; // trigger reflow
-      string.classList.add('plucked');
-
-      // Воспроизведение звука (опционально)
-      const pitch = string.style.getPropertyValue('--pitch');
-      if (pitch) {
-        playStringSound(parseFloat(pitch));
-      }
-    });
-  });
-
-  // Простая синтезация звука для струн
-  function playStringSound(frequency) {
-    try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      oscillator.frequency.value = frequency;
-      oscillator.type = 'sine';
-
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
-
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 1.5);
-    } catch (e) {
-      // Игнорируем ошибки аудио
-   }
- }
 
   // 7. Cookie Banner
   const cookieBanner = document.getElementById('cookie-banner');
