@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
       oscillator.stop(audioContext.currentTime + 1.5);
     } catch (e) {
       // Игнорируем ошибки аудио
-    }
-  });
+  }
+}
 
   // 7. Cookie Banner
   const cookieBanner = document.getElementById('cookie-banner');
