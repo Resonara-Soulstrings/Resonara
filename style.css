@@ -612,49 +612,61 @@ section {
   .hero-cta { flex-direction: column; align-items: center; }
 }
 
-/* Cookie banner */
+/* Cookie banner — улучшенный, не перекрывает важный контент */
 .cookie-banner {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(11, 12, 16, 0.95);
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  max-width: 450px;
+  background: rgba(11, 12, 16, 0.96);
   backdrop-filter: blur(12px);
-  border-top: 1px solid var(--gold);
+  border: 1px solid rgba(197, 165, 90, 0.3);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
   z-index: 1000;
-  padding: 1rem;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
+  transform: translateY(120%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 .cookie-banner.show {
   transform: translateY(0);
 }
 .cookie-content {
-  max-width: var(--container);
-  margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 .cookie-content p {
+  font-size: 0.85rem;
   margin: 0;
-  font-size: 0.9rem;
-  flex: 1;
+  line-height: 1.4;
+  color: var(--text);
+}
+.cookie-content a {
+  color: var(--gold);
+  text-decoration: underline;
 }
 .cookie-buttons {
   display: flex;
   gap: 0.8rem;
+  justify-content: flex-end;
 }
 .cookie-buttons .btn {
   padding: 0.4rem 1rem;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  border-radius: 40px;
 }
-@media (max-width: 768px) {
-  .cookie-content {
-    flex-direction: column;
-    text-align: center;
+/* Адаптив: на мобилках баннер чуть шире */
+@media (max-width: 640px) {
+  .cookie-banner {
+    left: 0.5rem;
+    right: 0.5rem;
+    max-width: none;
+    bottom: 0.5rem;
+    padding: 0.8rem;
+  }
+  .cookie-buttons {
+    justify-content: center;
   }
 }
