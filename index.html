@@ -37,7 +37,7 @@
     </nav>
     <div class="karma-bar" aria-hidden="true"><div class="karma-fill"></div></div>
   </header>
-  
+
   <main>
     <!-- Hero -->
     <section class="hero">
@@ -90,8 +90,7 @@
         <h3 data-i18n="subscribeTitle">Будь в курсе обновлений</h3>
         <form id="newsletter-form" novalidate>
           <input type="email" id="emailInput" placeholder="email@example.com" required aria-label="Email">
-          <!-- <button type="submit" data-i18n="subscribeBtn">Подписаться</button> -->
-          <button type="button" disabled style="opacity:0.6; cursor:default;">🚧 Подписка откроется позже</button>
+          <button type="submit" data-i18n="subscribeBtn">Подписаться</button>
         </form>
         <p class="form-note" data-i18n="formNote">Без спама. Только важные новости и инсайды разработки.</p>
         <p class="form-success hidden" data-i18n="formSuccess">Спасибо! Мы свяжемся с вами.</p>
@@ -117,8 +116,8 @@
       <div class="footer-left">
         <p>© <span id="year"></span> Shadow Skadi Production. All rights reserved.</p>
         <div class="footer-links">
-        <a href="privacy.html">Политика конфиденциальности</a>
-        <a href="#" data-i18n="footerContacts">Контакты</a>
+          <a href="#" data-i18n="footerPrivacy">Политика конфиденциальности</a>
+          <a href="#" data-i18n="footerContacts">Контакты</a>
         </div>
       </div>
       <div class="footer-right">
@@ -137,20 +136,7 @@
       </div>
     </div>
   </footer>
-  
-<!-- COOKIE BANNER (FIXED BOTTOM OF SCREEN) -->
-<div id="cookie-banner" class="cookie-banner" hidden>
-  <div class="cookie-container">
-    <p class="cookie-text">
-      Мы используем локальное хранилище для сохранения языка. Без трекеров и рекламы. 
-      <a href="privacy.html">Подробнее</a>
-    </p>
-    <div class="cookie-actions">
-      <button id="cookie-decline" class="btn-cookie btn-ghost">Принять</button>
-      <button id="cookie-accept" class="btn-cookie btn-gold">Отклонить</button>
-    </div>
-  </div>
-</div>
+
   <script src="script.js"></script>
- </body>
+</body>
 </html>
