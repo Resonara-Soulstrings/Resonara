@@ -137,7 +137,29 @@
       </div>
     </div>
   </footer>
-
+  
+  <!-- Cookie Banner в стиле игры -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-text">
+    <div class="cookie-glow"></div>
+    <div class="cookie-content">
+      <div class="cookie-icon">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+          <circle cx="12" cy="12" r="10" opacity="0.2"/>
+          <circle cx="12" cy="12" r="6" opacity="0.4"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <div class="cookie-message">
+        <h4 id="cookie-title" class="cookie-title">Карма помнит всё</h4>
+        <p id="cookie-text" class="cookie-text">Мы используем куки, чтобы улучшить твой путь. Как Мири и Пири направляют душу, так и мы сохраняем баланс твоих предпочтений.</p>
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-decline" class="btn-cookie btn-cookie-secondary">Отклонить</button>
+        <button id="cookie-accept" class="btn-cookie btn-cookie-primary">Принять</button>
+      </div>
+    </div>
+    <div class="cookie-particles" aria-hidden="true"></div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
