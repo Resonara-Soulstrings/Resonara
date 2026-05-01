@@ -617,7 +617,7 @@ section {
 /* === COOKIE BANNER === */
 .cookie-banner {
   position: fixed;
-  bottom: -100%;
+  bottom: -200%;
   left: 50%;
   transform: translateX(-50%);
   width: min(92%, 700px);
@@ -626,7 +626,7 @@ section {
   border: 2px solid rgba(197, 165, 90, 0.4);
   border-radius: 16px 16px 0 0;
   padding: 1.8rem 2rem;
-  z-index: 9999;
+  z-index: 10000;
   transition: bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow:
     0 -10px 40px rgba(0, 0, 0, 0.6),
@@ -636,7 +636,7 @@ section {
 }
 
 .cookie-banner.visible {
-  bottom: 0;
+  bottom: 20px;
 }
 
 .cookie-glow {
@@ -814,8 +814,12 @@ section {
     width: 100%;
     border-radius: 0;
     padding: 1.5rem 1.2rem;
-    bottom: -100%;
+    bottom: -200%;
     border-width: 1px;
+  }
+
+    .cookie-banner.visible {
+    bottom: 20px;
   }
 
   .cookie-content {
