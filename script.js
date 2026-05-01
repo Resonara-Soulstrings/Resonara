@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     currentLang = lang;
     document.documentElement.lang = lang;
     
-    // Перевод элементов с data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (translations[lang]?.[key]) {
@@ -92,15 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
-    // Обновление кнопки языка
     if (langBtn) {
       langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
     }
     
-    // Перевод куки-баннера (если есть)
     updateCookieBannerText(lang);
     
-    // Сохранение только при согласии
     if (savePreference && getConsent() === 'accepted') {
       localStorage.setItem(STORAGE_KEYS.LANG, lang);
     }
@@ -119,10 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
       textEl.innerHTML = translations[lang].cookieText;
     }
     if (acceptBtn && translations[lang]?.cookieAccept) {
-      acceptBtn.innerHTML = `<span class="btn-icon">✦</span> ${translations[lang].cookieAccept.split(' ')[1] || translations[lang].cookieAccept}`;
+      const label = translations[lang].cookieAccept;
+      acceptBtn.innerHTML = `<span class="btn-icon">✦</span> ${label}`;
     }
     if (declineBtn && translations[lang]?.cookieDecline) {
-      declineBtn.innerHTML = `<span class="btn-icon">◦</span> ${translations[lang].cookieDecline.split(' ')[1] || translations[lang].cookieDecline}`;
+      const label = translations[lang].cookieDecline;
+      declineBtn.innerHTML = `<span class="btn-icon">◦</span> ${label}`;
     }
   }
 
@@ -157,13 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    // Анимация скрытия баннера
     const cookieBanner = document.getElementById('cookie-consent');
     if (cookieBanner) {
-      cookieBanner.classList.remove('show');
+      cookieBanner.classList.remove('is-visible');
       setTimeout(() => {
         cookieBanner.style.display = 'none';
-      }, 400);
+      }, 300);
     }
   }
 
@@ -174,12 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!getConsent()) {
       cookieBanner.style.display = 'block';
       requestAnimationFrame(() => {
-        cookieBanner.classList.add('show');
+        cookieBanner.classList.add('is-visible');
       });
     }
   }
 
-  // Инициализация куки-баннера
   function initCookieConsent() {
     const acceptBtn = document.getElementById('cookie-accept');
     const declineBtn = document.getElementById('cookie-decline');
@@ -191,34 +187,26 @@ document.addEventListener('DOMContentLoaded', () => {
       declineBtn.addEventListener('click', () => setConsent('declined'));
     }
     
-    // Закрытие по Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const banner = document.getElementById('cookie-consent');
-        if (banner?.classList.contains('show')) {
+        if (banner?.classList.contains('is-visible')) {
           setConsent('declined');
         }
       }
     });
     
-    // Показ с небольшой задержкой
-    setTimeout(showCookieBanner, 800);
+    setTimeout(showCookieBanner, 1000);
   }
 
   // ========== 5. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (КНОПКА) ==========
   if (langBtn) {
     langBtn.addEventListener('click', () => {
       if (getConsent() !== 'accepted') {
-        // Мягкое напоминание: показать баннер и проскроллить к нему
         showCookieBanner();
         const banner = document.getElementById('cookie-consent');
         if (banner) {
           banner.scrollIntoView({ behavior: 'smooth', block: 'end' });
-          // Подсветка баннера
-          banner.style.animation = 'none';
-          setTimeout(() => {
-            banner.style.animation = 'pulseGold 0.5s ease-in-out';
-          }, 100);
         }
         return;
       }
@@ -248,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
       const width = Math.min(Math.max(scrollPercent * 100, 0), 100);
       karmaFill.style.width = `${width}%`;
-      const hue = Math.round(200 - scrollPercent * 180); // от синего к красному
+      const hue = Math.round(200 - scrollPercent * 180);
       karmaFill.style.background = `linear-gradient(90deg, hsl(${hue}, 70%, 50%), var(--gold))`;
     }, { passive: true });
   }
@@ -273,24 +261,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ========== 9. ИНТЕРАКТИВНЫЕ СТРУНЫ ==========
   document.querySelectorAll('.string').forEach(str => {
-    // Звук (опционально, раскомментируй если есть файлы)
-    // const audio = new Audio(`sounds/string_${Math.floor(Math.random()*3)+1}.mp3`);
-    
     const playPluck = (e) => {
-      // Вибрация на мобильных
       if (navigator.vibrate) navigator.vibrate(10);
       
-      // Анимация
       str.classList.remove('plucked');
-      void str.offsetWidth; // reflow для перезапуска анимации
+      void str.offsetWidth;
       str.classList.add('plucked');
       
-      // Звук (если раскомментировано выше)
-      // audio.currentTime = 0;
-      // audio.volume = 0.2;
-      // audio.play().catch(() => {});
-      
-      // Эффект частиц в точке клика
       if (e?.clientX) {
         createSparkle(e.clientX, e.clientY);
       }
@@ -305,7 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Мини-эффект "искр" при взаимодействии со струнами
   function createSparkle(x, y) {
     const sparkle = document.createElement('div');
     sparkle.style.cssText = `
@@ -325,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => sparkle.remove(), 600);
   }
 
-  // Добавляем ключевые кадры для sparkle, если их нет
   if (!document.getElementById('sparkle-keyframes')) {
     const style = document.createElement('style');
     style.id = 'sparkle-keyframes';
@@ -346,9 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailInput = document.getElementById('emailInput');
       const successMsg = document.querySelector('.form-success');
       
-      // Валидация (простая)
       if (emailInput?.value && emailInput.checkValidity()) {
-        // Демо-режим: не отправляем данные
         form.reset();
         if (successMsg) {
           successMsg.classList.remove('hidden');
@@ -373,64 +346,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-  // ========== 12. COOKIE BANNER: MINIMAL WORKING VERSION ==========
-(function initCookieBanner() {
-  const banner = document.getElementById('cookie-consent');
-  const acceptBtn = document.getElementById('cookie-accept');
-  const declineBtn = document.getElementById('cookie-decline');
-  const CONSENT_KEY = 'resonara_consent';
-  
-  // Если баннера нет — выходим
-  if (!banner) return;
-  
-  // Проверяем, есть ли уже согласие
-  const hasConsent = localStorage.getItem(CONSENT_KEY);
-  if (hasConsent) return; // Уже решили, не показываем
-  
-  // Показываем баннер
-  function showBanner() {
-    // Сначала убираем display: none
-    banner.style.display = 'block';
-    // Небольшая задержка для срабатывания перехода
-    setTimeout(() => {
-      banner.classList.add('is-visible');
-    }, 10);
-  }
-  
-  // Скрываем баннер
-  function hideBanner() {
-    banner.classList.remove('is-visible');
-    setTimeout(() => {
-      banner.style.display = 'none';
-    }, 300); // Ждём окончания анимации
-  }
-  
-  // Обработчики кнопок
-  function onAccept() {
-    localStorage.setItem(CONSENT_KEY, 'accepted');
-    hideBanner();
-  }
-  
-  function onDecline() {
-    localStorage.setItem(CONSENT_KEY, 'declined');
-    hideBanner();
-  }
-  
-  // Навешиваем события
-  if (acceptBtn) acceptBtn.addEventListener('click', onAccept);
-  if (declineBtn) declineBtn.addEventListener('click', onDecline);
-  
-  // Закрытие по Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && banner.classList.contains('is-visible')) {
-      onDecline();
-    }
-  });
-  
-  // Показ с небольшой задержкой (чтобы не перекрывать контент сразу)
-  setTimeout(showBanner, 1000);
-})();
 
   // ========== ИНИЦИАЛИЗАЦИЯ ==========
   initLanguage();
