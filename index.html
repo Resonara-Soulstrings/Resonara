@@ -141,14 +141,27 @@
   <script src="script.js"></script>
   
 <!-- Cookie уведомление -->
-<div id="cookie-consent" class="cookie-banner" style="display: none;">
+<div id="cookie-consent" class="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-title" style="display: none;">
   <div class="cookie-content">
-    <p>🍪 Мы используем cookies и локальное хранилище для запоминания вашего выбора языка и улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с этим. Подробнее в <a href="privacy.html">Политике конфиденциальности</a>.</p>
+    <div class="cookie-header">
+      <span class="cookie-icon" aria-hidden="true">✦</span>
+      <h3 id="cookie-title" class="cookie-title">Выбор Пути</h3>
+    </div>
+    <p class="cookie-text">
+      Мир <strong>Resonara</strong> запоминает твой выбор. Мы используем <em>локальное хранилище</em> для сохранения языка и настроек. 
+      Никаких трекеров — только твоя карма. 
+      <a href="privacy.html" target="_blank">Подробнее →</a>
+    </p>
     <div class="cookie-buttons">
-      <button id="cookie-accept" class="btn btn-primary">Принять</button>
-      <button id="cookie-decline" class="btn btn-secondary">Отклонить</button>
+      <button id="cookie-decline" class="btn btn-ghost" aria-label="Отклонить: не сохранять настройки">
+        <span class="btn-icon">◦</span> Путь Пири
+      </button>
+      <button id="cookie-accept" class="btn btn-gold" aria-label="Принять: разрешить сохранение настроек">
+        <span class="btn-icon">✦</span> Путь Мири
+      </button>
     </div>
   </div>
+  <div class="cookie-string" aria-hidden="true"></div>
 </div>
 </body>
 </html>
