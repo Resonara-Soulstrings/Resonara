@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Год в футере
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // 2. Переключение языков
+  // 2. Переключение языков (с поддержкой cookie-согласия)
   const translations = {
     ru: {
       heroTitle: "Балансируй эмоции. Меняй мир.",
@@ -62,8 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentLang = 'ru';
   const langBtn = document.getElementById('langBtn');
+  let cookieConsent = localStorage.getItem('cookieConsent');
 
-  function setLanguage(lang) {
+  // Функция установки языка (сохраняет только если есть согласие на cookies)
+  function setLanguage(lang, savePreference = true) {
     currentLang = lang;
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -71,13 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
       if (translations[lang][key]) el.textContent = translations[lang][key];
     });
     langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
-    localStorage.setItem('lang', lang);
+    if (savePreference && cookieConsent === 'accepted') {
+      localStorage.setItem('lang', lang);
+    }
   }
 
-  const savedLang = localStorage.getItem('lang');
-  if (savedLang && translations[savedLang]) setLanguage(savedLang);
+  // Восстанавливаем язык, только если есть cookie-согласие
+  if (cookieConsent === 'accepted') {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang && translations[savedLang]) {
+      setLanguage(savedLang, false);
+    } else {
+      setLanguage('ru', false);
+    }
+  } else {
+    // Если согласия нет, язык по умолчанию русский, но не сохраняем
+    setLanguage('ru', false);
+  }
 
-  langBtn.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
+  // Обработчик кнопки переключения языка (активен только при согласии)
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      if (cookieConsent !== 'accepted') {
+        alert('Пожалуйста, примите использование cookies в баннере внизу страницы, чтобы сохранять настройки языка.');
+        return;
+      }
+      const newLang = currentLang === 'ru' ? 'en' : 'ru';
+      setLanguage(newLang, true);
+    });
+  }
 
   // 3. Анимации при скролле
   const observer = new IntersectionObserver((entries) => {
@@ -117,20 +141,53 @@ document.addEventListener('DOMContentLoaded', () => {
     particleContainer.appendChild(p);
   }
 
-  // 6. Форма подписки
+  // 6. Форма подписки (отключена – только демо, сбор данных не производится)
   const form = document.getElementById('newsletter-form');
-  const emailInput = document.getElementById('emailInput');
-  const successMsg = document.querySelector('.form-success');
+  if (form) {
+    const emailInput = document.getElementById('emailInput');
+    const successMsg = document.querySelector('.form-success');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Демонстрационный режим – данные не собираются
+      alert('Форма подписки временно отключена. Подписка на новости откроется позже.');
+      // Можно также показать сообщение об отключении формы
+      // form.style.display = 'none';
+      // successMsg.classList.remove('hidden');
+    });
+  }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = emailInput.value.trim();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
+  // ========== 7. COOKIE-СОГЛАСИЕ (добавленный блок) ==========
+  const cookieBanner = document.getElementById('cookie-consent');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
 
-    form.querySelector('button').textContent = '...';
-    setTimeout(() => {
-      form.style.display = 'none';
-      successMsg.classList.remove('hidden');
-    }, 800);
-  });
+  // Если баннер существует и согласия ещё нет
+  if (cookieBanner && !cookieConsent) {
+    cookieBanner.style.display = 'block';
+    setTimeout(() => cookieBanner.classList.add('show'), 100);
+
+    function setCookieConsent(choice) {
+      localStorage.setItem('cookieConsent', choice);
+      cookieConsent = choice; // обновляем переменную
+      cookieBanner.classList.remove('show');
+      setTimeout(() => {
+        cookieBanner.style.display = 'none';
+      }, 300);
+
+      if (choice === 'accepted') {
+        // Сохраняем текущий язык (если он был установлен)
+        localStorage.setItem('lang', currentLang);
+        // Если кнопка языка была заблокирована – разблокируем (ничего дополнительно не нужно)
+      } else {
+        // Отклонено: удаляем язык, сбрасываем на русский, удаляем сохранённые предпочтения
+        localStorage.removeItem('lang');
+        setLanguage('ru', false);
+        // Дополнительно можно очистить другие возможные localstorage ключи
+        // Например, localStorage.removeItem('someOtherKey');
+      }
+    }
+
+    acceptBtn.addEventListener('click', () => setCookieConsent('accepted'));
+    declineBtn.addEventListener('click', () => setCookieConsent('declined'));
+  }
 });
