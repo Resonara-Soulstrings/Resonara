@@ -134,59 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
   });
   
-  // 7. Cookie Banner
-  const cookieBanner = document.getElementById('cookie-banner');
-  const cookieAccept = document.getElementById('cookie-accept');
-  const cookieDecline = document.getElementById('cookie-decline');
-  const cookieParticlesContainer = document.querySelector('.cookie-particles');
-
-  // Проверка, было ли уже принято решение
-  const cookieConsent = localStorage.getItem('cookieConsent');
-
-  if (!cookieConsent) {
-    // Показываем баннер с небольшой задержкой
-    setTimeout(() => {
-      cookieBanner.classList.add('visible');
-      createCookieParticles();
-    }, 1500);
-  }
-
-  // Создание частиц для cookie баннера
-  function createCookieParticles() {
-    const particleCount = 12;
-    for (let i = 0; i < particleCount; i++) {
-      const p = document.createElement('div');
-      p.classList.add('cookie-particle');
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.animationDuration = `${Math.random() * 2 + 2}s`;
-      p.style.animationDelay = `${Math.random() * 1.5}s`;
-      cookieParticlesContainer.appendChild(p);
-    }
-  }
-
-  // Обработка кнопки "Принять"
-  cookieAccept.addEventListener('click', () => {
-    cookieBanner.classList.remove('visible');
-    localStorage.setItem('cookieConsent', 'accepted');
-
-    // Эффект принятия
-    cookieAccept.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      cookieAccept.style.transform = '';
-    }, 150);
-  });
-
-  // Обработка кнопки "Отклонить"
-  cookieDecline.addEventListener('click', () => {
-    cookieBanner.classList.remove('visible');
-    localStorage.setItem('cookieConsent', 'declined');
-
-    // Эффект отклонения
-    cookieDecline.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      cookieDecline.style.transform = '';
-    }, 150);
-  });
 
   // Интерактивные струны
   document.querySelectorAll('.string').forEach(string => {
@@ -223,6 +170,57 @@ document.addEventListener('DOMContentLoaded', () => {
       oscillator.stop(audioContext.currentTime + 1.5);
     } catch (e) {
       // Игнорируем ошибки аудио
+    }
+  });
+
+  // 7. Cookie Banner
+  const cookieBanner = document.getElementById('cookie-banner');
+
+  if (cookieBanner) {
+    const cookieAccept = document.getElementById('cookie-accept');
+    const cookieDecline = document.getElementById('cookie-decline');
+    const cookieParticlesContainer = document.querySelector('.cookie-particles');
+
+    // Проверка, было ли уже принято решение
+    const cookieConsent = localStorage.getItem('cookieConsent');
+
+    if (!cookieConsent) {
+      // Показываем баннер с небольшой задержкой
+      setTimeout(() => {
+        cookieBanner.classList.add('visible');
+        createCookieParticles();
+      }, 1500);
+    }
+
+    // Создание частиц для cookie баннера
+    function createCookieParticles() {
+      const particleCount = 12;
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.classList.add('cookie-particle');
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDuration = `${Math.random() * 2 + 2}s`;
+        p.style.animationDelay = `${Math.random() * 1.5}s`;
+        if (cookieParticlesContainer) {
+          cookieParticlesContainer.appendChild(p);
+        }
+      }
+    }
+
+    // Обработка кнопки "Принять"
+    if (cookieAccept) {
+      cookieAccept.addEventListener('click', () => {
+        cookieBanner.classList.remove('visible');
+        localStorage.setItem('cookieConsent', 'accepted');
+      });
+    }
+
+    // Обработка кнопки "Отклонить"
+    if (cookieDecline) {
+      cookieDecline.addEventListener('click', () => {
+        cookieBanner.classList.remove('visible');
+        localStorage.setItem('cookieConsent', 'declined');
+      });
     }
   }
 });
