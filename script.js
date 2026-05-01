@@ -150,14 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Применяем язык сразу
-  setLanguage(currentLang);
+  window.setLanguage(currentLang);
 
   const langBtn = document.getElementById('langBtn');
   if (langBtn) {
     langBtn.addEventListener('click', () => {
-      setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+      window.setLanguage(currentLang === 'ru' ? 'en' : 'ru');
     });
-  }
 
   // 3. Анимации при скролле
   const observer = new IntersectionObserver((entries) => {
