@@ -618,37 +618,34 @@ section {
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 9999; /* Поверх всего */
-  
-  /* Полупрозрачный фон + размытие (Glassmorphism) */
-  background: rgba(11, 12, 16, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  
-  /* Золотая линия сверху в стиле сайта */
-  border-top: 1px solid rgba(197, 165, 90, 0.5);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-  
-  /* Скрыт по умолчанию (для анимации выезда) */
+  z-index: 9999;
+  background: rgba(11, 12, 16, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(197, 165, 90, 0.4);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.6);
   transform: translateY(100%);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.5rem 0;
 }
 
-/* Класс для показа */
 .cookie-banner.is-visible {
   transform: translateY(0);
 }
 
-/* Контейнер внутри баннера */
+.cookie-banner[hidden] {
+  display: none !important;
+}
+
 .cookie-container {
   max-width: var(--container);
   margin: 0 auto;
   padding: 1rem 1.5rem;
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .cookie-text {
@@ -656,15 +653,22 @@ section {
   color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.4;
+  flex: 1;
+  min-width: 200px;
 }
 
 .cookie-text a {
   color: var(--gold);
   text-decoration: none;
   border-bottom: 1px dotted var(--gold);
+  transition: var(--transition);
 }
 
-/* Кнопки */
+.cookie-text a:hover {
+  color: var(--karma-high);
+  border-color: var(--karma-high);
+}
+
 .cookie-actions {
   display: flex;
   gap: 0.8rem;
@@ -672,35 +676,38 @@ section {
 }
 
 .btn-cookie {
-  padding: 0.5rem 1.2rem;
-  border-radius: 4px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition);
   font-family: var(--font-body);
   border: none;
+  white-space: nowrap;
 }
 
-/* Кнопка "Принять" (Золотая) */
-.btn-gold {
+.btn-cookie.btn-gold {
   background: var(--gold);
   color: var(--bg);
 }
-.btn-gold:hover {
+
+.btn-cookie.btn-gold:hover {
   background: #D4B86A;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(197, 165, 90, 0.4);
 }
 
-/* Кнопка "Отклонить" (Призрачная) */
-.btn-ghost {
+.btn-cookie.btn-ghost {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--text-muted);
 }
-.btn-ghost:hover {
+
+.btn-cookie.btn-ghost:hover {
   border-color: var(--text);
   color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* Мобильная адаптация */
@@ -710,43 +717,14 @@ section {
     text-align: center;
     padding: 1rem;
   }
+  
   .cookie-actions {
     width: 100%;
+    justify-content: center;
   }
+  
   .btn-cookie {
-    flex: 1; /* Кнопки растягиваются на всю ширину */
+    flex: 1;
+    max-width: 140px;
   }
-}
-
-/* Стили для кнопок cookie banner */
-#cookie-consent .btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  font-family: var(--font-body);
-  transition: all 0.2s ease;
-}
-
-#cookie-consent .btn-secondary {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--text-muted);
-}
-
-#cookie-consent .btn-secondary:hover {
-  border-color: var(--text);
-  color: var(--text);
-}
-
-#cookie-consent .btn-primary {
-  background: var(--gold);
-  color: var(--bg);
-}
-
-#cookie-consent .btn-primary:hover {
-  background: #D4B86A;
-  transform: translateY(-1px);
 }
