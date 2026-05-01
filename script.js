@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+  
   // ========== 1. ГОД В ФУТЕРЕ ==========
   const yearEl = document.getElementById('year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // ========== 2. ПЕРЕМЕННЫЕ И КОНСТАНТЫ ==========
+  // ========== 2. ПЕРЕМЕННЫЕ ==========
   const STORAGE_KEYS = {
     CONSENT: 'resonara_consent',
     LANG: 'resonara_lang'
@@ -87,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
       langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
     }
     
+    // Сохраняем язык только если дали согласие
     if (savePreference && getConsent() === 'accepted') {
       localStorage.setItem(STORAGE_KEYS.LANG, lang);
     }
@@ -104,44 +106,35 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage('ru', false);
   }
 
-  // ========== 4. COOKIE CONSENT LOGIC ==========
+  // ========== 4. COOKIE LOGIC ==========
   function getConsent() {
     return localStorage.getItem(STORAGE_KEYS.CONSENT);
   }
 
-  function setConsent(choice) {
-    localStorage.setItem(STORAGE_KEYS.CONSENT, choice);
-    
-    if (choice === 'accepted') {
-      if (currentLang) {
-        localStorage.setItem(STORAGE_KEYS.LANG, currentLang);
-      }
-    } else {
-      localStorage.removeItem(STORAGE_KEYS.LANG);
-      if (currentLang !== 'ru') {
-        setLanguage('ru', false);
-      }
-    }
-    
-    const cookieBanner = document.getElementById('cookie-consent');
-    if (cookieBanner) {
-      cookieBanner.classList.remove('is-visible');
+  function hideCookieBanner() {
+    const banner = document.getElementById('cookie-banner');
+    if (banner) {
+      banner.classList.remove('is-visible'); // Выезжает вниз
+      // Полностью скрываем из потока после анимации
       setTimeout(() => {
-        cookieBanner.style.display = 'none';
-      }, 400);
+        banner.style.display = 'none'; 
+      }, 500);
     }
   }
 
   function showCookieBanner() {
-    const cookieBanner = document.getElementById('cookie-consent');
-    if (!cookieBanner) return;
-    
-    if (!getConsent()) {
-      cookieBanner.style.display = 'block';
-      setTimeout(() => {
-        cookieBanner.classList.add('is-visible');
-      }, 10);
-    }
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    // Если уже есть согласие - не показываем
+    if (getConsent()) return;
+
+    // Показываем (возвращаем display block)
+    banner.style.display = 'block';
+    // Небольшая задержка, чтобы CSS transition сработал
+    setTimeout(() => {
+      banner.classList.add('is-visible'); // Выезжает вверх
+    }, 50);
   }
 
   function initCookieConsent() {
@@ -149,35 +142,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const declineBtn = document.getElementById('cookie-decline');
     
     if (acceptBtn) {
-      acceptBtn.addEventListener('click', () => setConsent('accepted'));
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEYS.CONSENT, 'accepted');
+        // Если приняли, сохраняем текущий язык
+        if (currentLang) localStorage.setItem(STORAGE_KEYS.LANG, currentLang);
+        hideCookieBanner();
+      });
     }
+    
     if (declineBtn) {
-      declineBtn.addEventListener('click', () => setConsent('declined'));
+      declineBtn.addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEYS.CONSENT, 'declined');
+        // Если отказали, сбрасываем язык на дефолт и стираем сохраненный
+        localStorage.removeItem(STORAGE_KEYS.LANG);
+        setLanguage('ru', false);
+        hideCookieBanner();
+      });
     }
     
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const banner = document.getElementById('cookie-consent');
-        if (banner?.classList.contains('is-visible')) {
-          setConsent('declined');
-        }
-      }
-    });
-    
+    // Показать через 1.5 сек после загрузки
     setTimeout(showCookieBanner, 1500);
   }
 
-  // ========== 5. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (КНОПКА) ==========
+  // ========== 5. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (КНОПКА В ШАПКЕ) ==========
   if (langBtn) {
     langBtn.addEventListener('click', () => {
-      if (getConsent() !== 'accepted') {
+      // Если согласия нет, просим принять куки
+      if (!getConsent()) {
         showCookieBanner();
-        const banner = document.getElementById('cookie-consent');
-        if (banner) {
-          banner.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }
         return;
       }
+      
       const newLang = currentLang === 'ru' ? 'en' : 'ru';
       setLanguage(newLang, true);
     });
@@ -190,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.1 });
 
   document.querySelectorAll('.about-card, .media-item, .subscribe-form, .press-grid, .policy-card').forEach(el => {
     el.classList.add('fade-up');
