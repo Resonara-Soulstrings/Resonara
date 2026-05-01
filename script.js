@@ -374,6 +374,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ========== 12. COOKIE BANNER: MINIMAL WORKING VERSION ==========
+(function initCookieBanner() {
+  const banner = document.getElementById('cookie-consent');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
+  const CONSENT_KEY = 'resonara_consent';
+  
+  // Если баннера нет — выходим
+  if (!banner) return;
+  
+  // Проверяем, есть ли уже согласие
+  const hasConsent = localStorage.getItem(CONSENT_KEY);
+  if (hasConsent) return; // Уже решили, не показываем
+  
+  // Показываем баннер
+  function showBanner() {
+    // Сначала убираем display: none
+    banner.style.display = 'block';
+    // Небольшая задержка для срабатывания перехода
+    setTimeout(() => {
+      banner.classList.add('is-visible');
+    }, 10);
+  }
+  
+  // Скрываем баннер
+  function hideBanner() {
+    banner.classList.remove('is-visible');
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 300); // Ждём окончания анимации
+  }
+  
+  // Обработчики кнопок
+  function onAccept() {
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    hideBanner();
+  }
+  
+  function onDecline() {
+    localStorage.setItem(CONSENT_KEY, 'declined');
+    hideBanner();
+  }
+  
+  // Навешиваем события
+  if (acceptBtn) acceptBtn.addEventListener('click', onAccept);
+  if (declineBtn) declineBtn.addEventListener('click', onDecline);
+  
+  // Закрытие по Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && banner.classList.contains('is-visible')) {
+      onDecline();
+    }
+  });
+  
+  // Показ с небольшой задержкой (чтобы не перекрывать контент сразу)
+  setTimeout(showBanner, 1000);
+})();
+
   // ========== ИНИЦИАЛИЗАЦИЯ ==========
   initLanguage();
   initCookieConsent();
