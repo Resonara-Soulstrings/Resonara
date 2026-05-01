@@ -37,11 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pressGuidelines: "Гайд по упоминаниям",
       pressContacts: "Контакты для прессы",
       footerPrivacy: "Политика конфиденциальности",
-      footerContacts: "Контакты",
-      cookieTitle: "Выбор Пути",
-      cookieText: "Мир <strong>Resonara</strong> запоминает твой выбор. Мы используем <em>локальное хранилище</em> для сохранения языка и настроек. Никаких трекеров — только твоя карма. <a href=\"privacy.html\">Подробнее →</a>",
-      cookieAccept: "✦ Путь Мири",
-      cookieDecline: "◦ Путь Пири"
+      footerContacts: "Контакты"
     },
     en: {
       heroTitle: "Balance emotions. Change the world.",
@@ -68,11 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pressGuidelines: "Mentioning Guidelines",
       pressContacts: "Press Contacts",
       footerPrivacy: "Privacy Policy",
-      footerContacts: "Contacts",
-      cookieTitle: "Choose Your Path",
-      cookieText: "The world of <strong>Resonara</strong> remembers your choices. We use <em>local storage</em> to save language and preferences. No trackers — just your Karma. <a href=\"privacy.html\">Learn more →</a>",
-      cookieAccept: "✦ Miri's Path",
-      cookieDecline: "◦ Piri's Path"
+      footerContacts: "Contacts"
     }
   };
 
@@ -95,32 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
       langBtn.textContent = lang === 'ru' ? 'RU | EN' : 'EN | RU';
     }
     
-    updateCookieBannerText(lang);
-    
     if (savePreference && getConsent() === 'accepted') {
       localStorage.setItem(STORAGE_KEYS.LANG, lang);
-    }
-  }
-
-  function updateCookieBannerText(lang) {
-    const titleEl = document.getElementById('cookie-title');
-    const textEl = document.querySelector('.cookie-text');
-    const acceptBtn = document.getElementById('cookie-accept');
-    const declineBtn = document.getElementById('cookie-decline');
-    
-    if (titleEl && translations[lang]?.cookieTitle) {
-      titleEl.textContent = translations[lang].cookieTitle;
-    }
-    if (textEl && translations[lang]?.cookieText) {
-      textEl.innerHTML = translations[lang].cookieText;
-    }
-    if (acceptBtn && translations[lang]?.cookieAccept) {
-      const label = translations[lang].cookieAccept;
-      acceptBtn.innerHTML = `<span class="btn-icon">✦</span> ${label}`;
-    }
-    if (declineBtn && translations[lang]?.cookieDecline) {
-      const label = translations[lang].cookieDecline;
-      declineBtn.innerHTML = `<span class="btn-icon">◦</span> ${label}`;
     }
   }
 
@@ -160,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cookieBanner.classList.remove('is-visible');
       setTimeout(() => {
         cookieBanner.style.display = 'none';
-      }, 300);
+      }, 400);
     }
   }
 
@@ -170,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!getConsent()) {
       cookieBanner.style.display = 'block';
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         cookieBanner.classList.add('is-visible');
-      });
+      }, 10);
     }
   }
 
@@ -196,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
-    setTimeout(showCookieBanner, 1000);
+    setTimeout(showCookieBanner, 1500);
   }
 
   // ========== 5. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (КНОПКА) ==========
