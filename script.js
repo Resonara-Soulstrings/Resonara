@@ -133,8 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       successMsg.classList.remove('hidden');
     }, 800);
   });
-});
-
+  
   // 7. Cookie Banner
   const cookieBanner = document.getElementById('cookie-banner');
   const cookieAccept = document.getElementById('cookie-accept');
