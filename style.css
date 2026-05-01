@@ -717,3 +717,36 @@ section {
     flex: 1; /* Кнопки растягиваются на всю ширину */
   }
 }
+
+/* Стили для кнопок cookie banner */
+#cookie-consent .btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+
+#cookie-consent .btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-muted);
+}
+
+#cookie-consent .btn-secondary:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+#cookie-consent .btn-primary {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+#cookie-consent .btn-primary:hover {
+  background: #D4B86A;
+  transform: translateY(-1px);
+}
