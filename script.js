@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedLang = localStorage.getItem('lang');
   if (savedLang && translations[savedLang]) currentLang = savedLang;
 
-  window.function setLanguage(lang) {
+  window.setLanguage = function(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
