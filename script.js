@@ -1,3 +1,8 @@
+/**
+ * Resonara: Soulstrings — Official Hub
+ * Исправленный script.js
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
   // ========== 1. ГОД В ФУТЕРЕ ==========
   const yearEl = document.getElementById('year');
@@ -105,46 +110,50 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage('ru', false);
   }
 
-  // ========== 4. COOKIE BANNER LOGIC ==========
+  // ========== 4. COOKIE BANNER LOGIC (ИСПРАВЛЕНО) ==========
   function getConsent() {
     return localStorage.getItem(STORAGE_KEYS.CONSENT);
   }
 
   function showCookieBanner() {
-    const banner = document.getElementById('cookie-consent');
-    if (!banner || getConsent()) return; // Не показываем, если уже есть выбор
+    const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО: был 'cookie-consent'
+    if (!banner || getConsent()) return;
     
-    banner.style.display = 'block';
+    banner.hidden = false;
     requestAnimationFrame(() => {
       banner.classList.add('is-visible');
     });
   }
 
   function hideCookieBanner() {
-    const banner = document.getElementById('cookie-consent');
+    const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО
     if (!banner) return;
     
     banner.classList.remove('is-visible');
     setTimeout(() => {
-      banner.style.display = 'none';
-    }, 400); // Ждём окончания CSS transition
+      banner.hidden = true;
+    }, 400);
   }
 
   function initCookieConsent() {
-    const banner = document.getElementById('cookie-consent');
+    const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО
     const acceptBtn = document.getElementById('cookie-accept');
     const declineBtn = document.getElementById('cookie-decline');
     
-    if (!banner) return; // Безопасно для privacy.html
+    if (!banner) return;
 
-    // Показываем с задержкой
-    setTimeout(showCookieBanner, 1200);
+    // Показываем с задержкой, если нет сохранённого выбора
+    setTimeout(() => {
+      if (getConsent() === null) {
+        showCookieBanner();
+      }
+    }, 1500);
 
     // Кнопка "Принять"
     if (acceptBtn) {
       acceptBtn.addEventListener('click', () => {
         localStorage.setItem(STORAGE_KEYS.CONSENT, 'accepted');
-        localStorage.setItem(STORAGE_KEYS.LANG, currentLang); // Запоминаем текущий язык
+        localStorage.setItem(STORAGE_KEYS.LANG, currentLang);
         hideCookieBanner();
       });
     }
@@ -153,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (declineBtn) {
       declineBtn.addEventListener('click', () => {
         localStorage.setItem(STORAGE_KEYS.CONSENT, 'declined');
-        localStorage.removeItem(STORAGE_KEYS.LANG); // Стираем сохранённый язык
+        localStorage.removeItem(STORAGE_KEYS.LANG);
         hideCookieBanner();
       });
     }
@@ -170,17 +179,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========== 5. ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (КНОПКА В ШАПКЕ) ==========
   if (langBtn) {
     langBtn.addEventListener('click', () => {
-      // Если согласия нет -> показываем баннер и скроллим к нему
+      // Если согласия нет → показываем баннер
       if (getConsent() !== 'accepted') {
         showCookieBanner();
-        const banner = document.getElementById('cookie-consent');
+        const banner = document.getElementById('cookie-banner'); // ✅ ИСПРАВЛЕНО
         if (banner) {
           banner.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
         return;
       }
       
-      // Если согласие есть -> переключаем язык
+      // Если согласие есть → переключаем язык
       const newLang = currentLang === 'ru' ? 'en' : 'ru';
       setLanguage(newLang, true);
     });
@@ -223,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       p.style.width = `${size}px`;
       p.style.height = `${size}px`;
       p.style.left = `${Math.random() * 100}%`;
+      p.style.top = `${Math.random() * 100}%`;
       p.style.animationDuration = `${Math.random() * 12 + 10}s`;
       p.style.animationDelay = `${Math.random() * 15}s`;
       p.style.opacity = Math.random() * 0.5 + 0.3;
@@ -236,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navigator.vibrate) navigator.vibrate(10);
       
       str.classList.remove('plucked');
-      void str.offsetWidth; // reflow
+      void str.offsetWidth; // reflow для перезапуска анимации
       str.classList.add('plucked');
       
       if (e?.clientX) {
@@ -258,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sparkle.style.cssText = `
       position: fixed; left: ${x}px; top: ${y}px;
       width: 6px; height: 6px; background: var(--gold);
-      border-radius: 50%; pointer-events: none; z-index: 999;
+      border-radius: 50%; pointer-events: none; z-index: 9999;
       box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(197,165,90,0.6);
       animation: sparkleFade 0.6s ease-out forwards;
     `;
@@ -300,7 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (href.length > 1) {
         e.preventDefault();
         const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
   });
