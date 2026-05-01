@@ -68,14 +68,31 @@
       background: rgba(255,255,255,0.1);
       margin: 1.5rem 0;
     }
-    @media (max-width: 768px) {
-      .policy-card {
-        padding: 1.2rem;
+       @media (max-width: 768px) {
+       .policy-card {
+       padding: 1.2rem;
       }
       .policy-card h2 {
-        font-size: 1.2rem;
+      font-size: 1.2rem;
       }
     }
+    /* === ОТСТУП ОТ ХЕДЕРА ДЛЯ КОНТЕНТА ПОЛИТИКИ === */
+      @media (min-width: 769px) {
+      .policy-container {
+      padding-top: calc(6rem + 2rem); /* 6rem = высота хедера + отступ */
+  }
+}
+
+@media (max-width: 768px) {
+  .policy-container {
+    padding-top: calc(4rem + 1.5rem); /* Мобильная версия */
+  }
+}
+
+/* Чтобы первая карточка не «прилипала» к верху */
+.policy-card {
+  margin-top: 1rem;
+}
   </style>
 </head>
 <body>
