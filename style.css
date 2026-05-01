@@ -585,7 +585,7 @@ section {
   bottom: 0;                       /* ПРИКЛЕЕН К НИЗУ ЭКРАНА */
   left: 50%;
   transform: translateX(-50%) translateY(100%); /* ИЗНАЧАЛЬНО СПРЯТАН ВНИЗ */
-  width: min(92%, 700px);
+  width: min(92%, 850px);
   background: linear-gradient(135deg, rgba(31,40,51,0.98), rgba(11,12,16,0.95));
   backdrop-filter: blur(20px);
   border: 2px solid rgba(197,165,90,0.4);
