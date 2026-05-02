@@ -144,23 +144,21 @@ section {
   z-index: 0;
 }
 
-/* === HERO: УНИКАЛЬНЫЕ СТИЛИ === */
+/* === СВЕЧЕНИЯ: HERO. УНИКАЛЬНЫЕ СТИЛИ === */
 .hero::before {
   top: 40%;
   width: clamp(300px, 70vw, 1100px);
   height: clamp(300px, 70vw, 1100px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.35) 0%,
+    rgba(197, 165, 90, 0.40) 0%,
     rgba(197, 165, 90, 0.22) 50%,
     transparent 75%
   );
   filter: blur(15px);
 }
 
-/* === ОСТАЛЬНЫЕ СЕКЦИИ: УНИКАЛЬНЫЕ СТИЛИ === */
-
-/* === ABOUT === */
+/* === СВЕЧЕНИЯ: ABOUT === */
 .about::before {
   top: 65%;
   width: clamp(1100px, 50vw, 1150px);
@@ -174,7 +172,7 @@ section {
   filter: blur(20px);
 }
 
-/* === MEDIA === */
+/*=== СВЕЧЕНИЯ: MEDIA === */
 .media::before {
   top: 65%;
   width: clamp(1100px, 50vw, 1150px);
@@ -188,7 +186,7 @@ section {
   filter: blur(20px);
 }
 
-/* === COMMUNITY === */
+/* === СВЕЧЕНИЯ: COMMUNITY === */
 .community::before {
   top: 65%;
   width: clamp(250px, 50vw, 800px);
@@ -202,7 +200,7 @@ section {
   filter: blur(20px);
 }
 
-/* === PRESS === */
+/* === СВЕЧЕНИЯ: PRESS === */
 .press::before {
     top: 65%;
   width: clamp(250px, 50vw, 800px);
