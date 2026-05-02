@@ -162,7 +162,7 @@ section {
 .about::before {
   top: 65%;
   width: clamp(1100px, 50vw, 1150px);
-  height: clamp(250px, 50vw, 800px);
+  height: clamp(475px, 50vw, 525px);
   background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.20) 0%,
@@ -190,7 +190,7 @@ section {
 .community::before {
   top: 65%;
   width: clamp(250px, 50vw, 800px);
-  height: clamp(250px, 50vw, 800px);
+  height: clamp(550px, 50vw, 600px);
   background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.20) 0%,
@@ -204,7 +204,7 @@ section {
 .press::before {
   top: 65%;
   width: clamp(250px, 50vw, 800px);
-  height: clamp(250px, 50vw, 800px);
+  height: clamp(550px, 50vw, 600px);
   background: radial-gradient(
     circle at 50% 30%,
     rgba(197, 165, 90, 0.20) 0%,
