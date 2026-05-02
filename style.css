@@ -151,22 +151,22 @@ section {
   height: clamp(300px, 70vw, 1100px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.40) 0%,
-    rgba(197, 165, 90, 0.22) 50%,
-    transparent 75%
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.12) 50%,
+    transparent 80%
   );
   filter: blur(15px);
 }
 
-/* === СВЕЧЕНИЯ: ABOUT === */
+/*=== СВЕЧЕНИЯ: ABOUT === */
 .about::before {
   top: 65%;
   width: clamp(1100px, 50vw, 1150px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,    /* ЦЕНТР ЯРЧЕ */
-    rgba(197, 165, 90, 0.12) 45%,    /* ПЛАВНЫЙ ПЕРЕХОД */
+    rgba(197, 165, 90, 0.15) 0%,
+    rgba(197, 165, 90, 0.07) 45%,
     transparent 75%
   );
   filter: blur(20px);
@@ -179,36 +179,36 @@ section {
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,    /* ЦЕНТР ЯРЧЕ */
-    rgba(197, 165, 90, 0.12) 45%,    /* ПЛАВНЫЙ ПЕРЕХОД */
+    rgba(197, 165, 90, 0.15) 0%,
+    rgba(197, 165, 90, 0.07) 45%,
     transparent 75%
   );
   filter: blur(20px);
 }
 
-/* === СВЕЧЕНИЯ: COMMUNITY === */
+/*=== СВЕЧЕНИЯ: COMMUNITY === */
 .community::before {
   top: 65%;
   width: clamp(250px, 50vw, 800px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,    /* ЦЕНТР ЯРЧЕ */
-    rgba(197, 165, 90, 0.12) 45%,    /* ПЛАВНЫЙ ПЕРЕХОД */
+    rgba(197, 165, 90, 0.15) 0%,
+    rgba(197, 165, 90, 0.07) 45%,
     transparent 75%
   );
   filter: blur(20px);
 }
 
-/* === СВЕЧЕНИЯ: PRESS === */
+/*=== СВЕЧЕНИЯ: PRESS === */
 .press::before {
-    top: 65%;
+  top: 65%;
   width: clamp(250px, 50vw, 800px);
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,    /* ЦЕНТР ЯРЧЕ */
-    rgba(197, 165, 90, 0.12) 45%,    /* ПЛАВНЫЙ ПЕРЕХОД */
+    rgba(197, 165, 90, 0.15) 0%,
+    rgba(197, 165, 90, 0.07) 45%,
     transparent 75%
   );
   filter: blur(20px);
@@ -466,72 +466,71 @@ section {
 @media (max-width: 768px) {
   .string { opacity: 0.08; }
   
-  /* СВЕЧЕНИЯ: ЧУТЬ БОЛЬШЕ ОТНОСИТЕЛЬНО ШИРИНЫ ЭКРАНА, НО СТРОГО В ПРЕДЕЛАХ VW */
+  /* СВЕЧЕНИЯ */
   .hero::before {
     top: 45%;
     width: clamp(280px, 85vw, 800px);
     height: clamp(280px, 85vw, 800px);
     background: radial-gradient(
-    circle at 50% 30%,
-    rgba(197, 165, 90, 0.52) 0%,    /* ← ПОДКРУЧИВАЕМ ЯРКОСТЬ ЗДЕСЬ */
-    rgba(197, 165, 90, 0.34) 50%,
-    transparent 80%
-    );
+      circle at 50% 30%,
+      rgba(197, 165, 90, 0.52) 0%,
+      rgba(197, 165, 90, 0.34) 50%,
+      transparent 80%);
     filter: blur(30px);
   }
 
-  /* 🔹 ABOUT: ВЫТЯНУТ ПО ВЕРТИКАЛИ, СМЕЩЁН ВНИЗ */
+  /* ABOUT */
   .about::before {
     top: 70%;
     width: clamp(450px, 80vw, 480px);
     height: clamp(1175px, 120vw, 1225px);
     background: radial-gradient(
-    circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,
-    rgba(197, 165, 90, 0.15) 45%,
-    transparent 75%
+      circle at 50% 30%,
+      rgba(197, 165, 90, 0.25) 0%,
+      rgba(197, 165, 90, 0.15) 45%,
+      transparent 75%
     );
     filter: blur(22px);
   }
 
-  /* 🔹 MEDIA: КОМПАКТНЫЙ, СМЕЩЁН К НАЧАЛУ СЕКЦИИ */
+  /* MEDIA */
   .media::before {
     top: 67%;
     width: clamp(450px, 85vw, 480px);
     height: clamp(1715px, 85vw, 1740px);
     background: radial-gradient(
-    circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,
-    rgba(197, 165, 90, 0.15) 45%,
-    transparent 70%
+      circle at 50% 30%,
+      rgba(197, 165, 90, 0.25) 0%,
+      rgba(197, 165, 90, 0.15) 45%,
+      transparent 70%
     );
     filter: blur(20px);
   }
 
-  /* 🔹 COMMUNITY: ШИРОКИЙ, СПЛЮСНУТЫЙ, УХОДИТ ЗА КРАЯ */
+  /* COMMUNITY */
   .community::before {
     top: 60%;
-    width: clamp(450px, 110vw, 480px);  /* ШИРЕ ЭКРАНА */
-    height: clamp(480px, 60vw, 500px);  /* УЖЕ ЧЕМ ШИРИНА → ГОРИЗОНТАЛЬНЫЙ ОВАЛ */
+    width: clamp(450px, 110vw, 480px);
+    height: clamp(480px, 60vw, 500px);
     background: radial-gradient(
-    circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,
-    rgba(197, 165, 90, 0.15) 45%,
-    transparent 75%
+      circle at 50% 30%,
+      rgba(197, 165, 90, 0.25) 0%,
+      rgba(197, 165, 90, 0.15) 45%,
+      transparent 75%
     );
     filter: blur(24px);
   }
 
-  /* 🔹 PRESS: МАЛЕНЬКИЙ, АККУРАТНЫЙ, ВВЕРХУ */
+  /* PRESS  */
   .press::before {
     top: 65%;
     width: clamp(450px, 60vw, 480px);
     height: clamp(480px, 60vw, 500px);
     background: radial-gradient(
-    circle at 50% 30%,
-    rgba(197, 165, 90, 0.25) 0%,
-    rgba(197, 165, 90, 0.10) 45%,
-    transparent 70%
+      circle at 50% 30%,
+      rgba(197, 165, 90, 0.25) 0%,
+      rgba(197, 165, 90, 0.10) 45%,
+      transparent 70%
     );
     filter: blur(18px);
   }
