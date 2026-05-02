@@ -202,7 +202,7 @@ section {
 
 /*=== СВЕЧЕНИЯ: PRESS === */
 .press::before {
-  top: 67%;
+  top: 70%;
   width: clamp(250px, 50vw, 800px);
   height: clamp(550px, 50vw, 600px);
   background: radial-gradient(
