@@ -160,7 +160,7 @@ section {
 
 /*=== СВЕЧЕНИЯ: ABOUT === */
 .about::before {
-  top: 65%;
+  top: 62%;
   width: clamp(1100px, 50vw, 1150px);
   height: clamp(475px, 50vw, 525px);
   background: radial-gradient(
