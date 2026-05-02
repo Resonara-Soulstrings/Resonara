@@ -151,8 +151,8 @@ section {
   height: clamp(300px, 70vw, 1100px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.40) 0%,
-    rgba(197, 165, 90, 0.25) 50%,
+    rgba(197, 165, 90, 0.35) 0%,
+    rgba(197, 165, 90, 0.20) 50%,
     transparent 80%
   );
   filter: blur(15px);
@@ -165,8 +165,8 @@ section {
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.30) 0%,
-    rgba(197, 165, 90, 0.14) 45%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.12) 45%,
     transparent 75%
   );
   filter: blur(20px);
@@ -179,8 +179,8 @@ section {
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.30) 0%,
-    rgba(197, 165, 90, 0.14) 45%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.12) 45%,
     transparent 75%
   );
   filter: blur(20px);
@@ -193,8 +193,8 @@ section {
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.30) 0%,
-    rgba(197, 165, 90, 0.14) 45%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.12) 45%,
     transparent 75%
   );
   filter: blur(20px);
@@ -207,8 +207,8 @@ section {
   height: clamp(250px, 50vw, 800px);
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(197, 165, 90, 0.30) 0%,
-    rgba(197, 165, 90, 0.14) 45%,
+    rgba(197, 165, 90, 0.25) 0%,
+    rgba(197, 165, 90, 0.12) 45%,
     transparent 75%
   );
   filter: blur(20px);
